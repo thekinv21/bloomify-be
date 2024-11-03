@@ -7,8 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "ROLE")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,4 +27,7 @@ public class Role extends BaseEntity{
     private String name;
 
     private Boolean isActive;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
 }

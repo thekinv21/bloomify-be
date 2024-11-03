@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "FLOWER_IMAGE")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
