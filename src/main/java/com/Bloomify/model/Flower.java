@@ -46,6 +46,6 @@ public class Flower extends BaseEntity {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    public List<FlowerImage> flowerImages;
+    public List<FlowerImage> images;
 
 }
