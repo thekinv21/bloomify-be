@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class RoleDto {
+public class RoleDto extends BaseDto {
 
     @NotNull(groups = UpdateValidation.class)
     @Null(groups = CreateValidation.class)

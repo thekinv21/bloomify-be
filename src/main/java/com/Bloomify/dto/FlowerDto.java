@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 
-public class FlowerDto {
+public class FlowerDto extends BaseDto {
     @NotNull(groups = UpdateValidation.class)
     @Null(groups = CreateValidation.class)
     public Long id;
