@@ -7,6 +7,6 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: jdbc:postgresql://139.162.157.124:5432/test_database
-    username: postgres
-    password: 197619er
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
