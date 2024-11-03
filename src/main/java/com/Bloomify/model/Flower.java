@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "FLOWER")
@@ -38,5 +39,13 @@ public class Flower extends BaseEntity {
     private int width;
 
     private Boolean isActive;
+
+
+    @OneToMany(
+            mappedBy = "flower",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    public List<FlowerImage> flowerImages;
 
 }

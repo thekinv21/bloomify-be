@@ -22,4 +22,7 @@ public class FlowerImage {
 
     private Boolean isActive;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "flower_id", nullable = false)
+    private Flower flower;
 }
