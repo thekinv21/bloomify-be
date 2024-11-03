@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: "bloomify-be"
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://139.162.157.124:5432/test_database
+    username: postgres
+    password: 197619er
