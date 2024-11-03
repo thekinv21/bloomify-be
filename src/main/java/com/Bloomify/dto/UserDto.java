@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 
-public class UserDto {
+public class UserDto extends BaseDto {
 
     @NotNull(groups = UpdateValidation.class)
     @Null(groups = CreateValidation.class)
@@ -35,5 +35,5 @@ public class UserDto {
     public Boolean isActive;
 
     @NotNull(groups = {CreateValidation.class, UpdateValidation.class})
-    public List<String> roles;
+    public List<RoleDto> roles;
 }
