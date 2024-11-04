@@ -15,7 +15,4 @@ public class BaseDto {
 
     private LocalDateTime updatedAt;
 
-    private String createdBy;
-
-    private String updatedBy;
 }

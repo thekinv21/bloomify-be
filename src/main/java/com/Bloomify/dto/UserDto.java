@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Getter
@@ -16,7 +17,7 @@ public class UserDto extends BaseDto {
 
     @NotNull(groups = UpdateValidation.class)
     @Null(groups = CreateValidation.class)
-    public String id;
+    public UUID id;
 
     public String firstName;
     public String lastName;
