@@ -1,5 +1,6 @@
 package com.Bloomify.controller;
 
+import com.Bloomify.response.CustomApiResponse;
 import com.Bloomify.service.BaseService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,28 +19,28 @@ public abstract class BaseController<MODEL,DTO,ID> {
     }
 
     @GetMapping
-    public ResponseEntity<List<DTO>> getAll(){
+    public ResponseEntity<CustomApiResponse> getAll(){
         List<DTO> response = service.getAll();
-        return ResponseEntity.ok(response);
+        return CustomApiResponse.builder().data(response).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DTO> getById(@PathVariable ID id) {
+    public ResponseEntity<CustomApiResponse> getById(@PathVariable ID id) {
         Optional<DTO> dto = service.getOptDtoById(id);
-        return dto.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        return CustomApiResponse.builder().data(dto.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build())).build();
     }
 
     @PostMapping
-    public ResponseEntity<DTO> create(@Valid @RequestBody DTO dto) {
+    public ResponseEntity<CustomApiResponse> create(@Valid @RequestBody DTO dto) {
         DTO createdDto = service.create(dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdDto);
+        return CustomApiResponse.builder().data(createdDto).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DTO> update(@PathVariable ID id, @Valid @RequestBody DTO dto) {
+    public ResponseEntity<CustomApiResponse> update(@PathVariable ID id, @Valid @RequestBody DTO dto) {
         DTO updatedDto = service.update(id, dto);
-        return ResponseEntity.ok(updatedDto);
+        return CustomApiResponse.builder().data(updatedDto).build();
     }
 
 
