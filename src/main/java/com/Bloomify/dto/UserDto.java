@@ -34,7 +34,7 @@ public class UserDto extends BaseDto {
 
     public String avatarPath;
 
-    public Boolean isActive;
+    public boolean isActive;
 
     @NotNull(groups = {CreateValidation.class, UpdateValidation.class})
     private Set<String> roles;

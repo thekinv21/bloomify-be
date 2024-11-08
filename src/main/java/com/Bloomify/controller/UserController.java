@@ -20,9 +20,14 @@ public class UserController  {
 
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/admin")
     public ResponseEntity<CustomApiResponse> getAll() {
         return CustomApiResponse.builder().data(userService.getAll()).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<CustomApiResponse> getAllActive() {
+        return CustomApiResponse.builder().data(userService.getAllActive()).build();
     }
 
 
