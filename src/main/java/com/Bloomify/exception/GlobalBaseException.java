@@ -75,6 +75,6 @@ public class GlobalBaseException extends BaseException {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public final ResponseEntity<CustomApiResponse> handleHttpMessageNotReadableException(
             Exception ex, WebRequest request) {
-        return buildErrorResponse("Body is missing !", HttpStatus.BAD_REQUEST);
+        return buildErrorResponse("Body is missing!", HttpStatus.BAD_REQUEST);
     }
 }
