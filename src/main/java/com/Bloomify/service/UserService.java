@@ -1,6 +1,5 @@
 package com.Bloomify.service;
 
-
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.model.User;
 
@@ -12,11 +11,13 @@ public interface UserService{
 
     List<UserDto> getAll();
 
+    List<UserDto> getAllActive();
+
     UserDto getById(UUID id);
 
-    Optional<UserDto> getOptDtoById(UUID id);
+    UserDto getOptDtoById(UUID id);
 
-    Optional<User> getOptEntityById(UUID id);
+    void getOptEntityById(UUID id);
 
     UserDto getByEmail(String email);
 
