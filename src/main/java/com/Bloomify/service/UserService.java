@@ -17,7 +17,7 @@ public interface UserService{
 
     UserDto getOptDtoById(UUID id);
 
-    void getOptEntityById(UUID id);
+    User getOptEntityById(UUID id);
 
     UserDto getByEmail(String email);
 

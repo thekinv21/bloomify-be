@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void getOptEntityById(UUID id) {
-        userRepository.findById(id)
+    public User getOptEntityById(UUID id) {
+        return userRepository.findById(id)
                 .orElseThrow(() -> new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND));
     }
 
@@ -96,8 +96,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto dto) {
-        this.getOptEntityById(dto.getId());
-        return userMapper.toDto(userRepository.save(userMapper.toEntity(dto)));
+        User existingUser = getOptEntityById(dto.getId());
+
+        existingUser.setUsername(dto.getUsername());
+        existingUser.setEmail(dto.getEmail());
+        existingUser.setLastName(dto.getLastName());
+        existingUser.setFirstName(dto.getFirstName());
+        existingUser.setAvatarPath(dto.getAvatarPath());
+        existingUser.setRoles(roleService.getRolesByNames(dto.getRoles().stream().toList()));
+        existingUser.setIsActive(dto.isActive);
+
+        return userMapper.toDto(userRepository.save(existingUser));
     }
 
     @Override
