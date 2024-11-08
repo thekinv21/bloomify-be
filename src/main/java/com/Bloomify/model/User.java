@@ -1,6 +1,7 @@
 package com.Bloomify.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,6 +33,8 @@ public class User extends BaseEntity {
     private String password;
     private String avatarPath;
 
+
+    @Column(columnDefinition = "boolean default true")
     public Boolean isActive;
 
     @ManyToMany
