@@ -21,4 +21,10 @@ public class RoleDto extends BaseDto {
 
     @NotNull(groups = {UpdateValidation.class,CreateValidation.class})
     public Boolean isActive;
+
+
+    public RoleDto(String name) {
+        this.name = name;
+        this.isActive = true;
+    }
 }
