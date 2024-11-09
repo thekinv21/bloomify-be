@@ -1,5 +1,6 @@
 package com.Bloomify.service;
 
+import com.Bloomify.dto.SelectDto;
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.model.User;
 
@@ -11,6 +12,8 @@ public interface UserService{
     List<UserDto> getAll();
 
     List<UserDto> getAllActive();
+
+    List<SelectDto<UUID>> getForSelect();
 
     UserDto getById(UUID id);
 

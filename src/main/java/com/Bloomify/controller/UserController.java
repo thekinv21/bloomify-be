@@ -36,6 +36,11 @@ public class UserController  {
         return CustomApiResponse.builder().data(userService.getActiveById(id)).build();
     }
 
+    @GetMapping("/for-select")
+    public ResponseEntity<CustomApiResponse> getForSelect() {
+        return CustomApiResponse.builder().data(userService.getForSelect()).build();
+    }
+
     @GetMapping("/admin/{id}")
     public ResponseEntity<CustomApiResponse> getById(@PathVariable UUID id) {
         return CustomApiResponse.builder().data(userService.getById(id)).build();

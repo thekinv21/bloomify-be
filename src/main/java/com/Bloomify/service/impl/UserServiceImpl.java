@@ -1,6 +1,7 @@
 package com.Bloomify.service.impl;
 
 
+import com.Bloomify.dto.SelectDto;
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.exception.CustomException;
 import com.Bloomify.mapper.UserMapper;
@@ -40,6 +41,13 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAllActive() {
         return userRepository.findAllByIsActiveTrue().
                 stream().map(userMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SelectDto<UUID>> getForSelect() {
+        return userRepository.findAllByIsActiveTrue().
+                stream().map(userMapper::toSelectDto)
                 .collect(Collectors.toList());
     }
 
