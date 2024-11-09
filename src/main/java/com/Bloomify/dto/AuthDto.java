@@ -13,7 +13,8 @@ public class AuthDto {
     private UserDto user;
     private String accessToken;
     private String refreshToken;
-    private Instant expiresAt;
+    private Instant accessTokenExpiresAt;
+    private Instant refreshTokenExpiresAt;
 
     @Data
     public static class LoginDto {
@@ -25,6 +26,7 @@ public class AuthDto {
     public static class TokenDto {
         private String accessToken;
         private String refreshToken;
-        private Instant expiresAt;
+        private Instant accessTokenExpiresAt;
+        private Instant refreshTokenExpiresAt;
     }
 }
