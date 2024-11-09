@@ -25,6 +25,8 @@ public interface UserService{
 
     UserDto getByUsername(String username);
 
+    User getEntityByUsername(String username);
+
     UserDto create(UserDto dto);
 
     UserDto update(UserDto dto);

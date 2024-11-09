@@ -82,6 +82,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getEntityByUsername(String username) {
+        User user = userRepository.getByUsernameAndIsActiveTrue(username);
+
+        if (user == null) {
+            throw new CustomException("User with username: " + username + " not found", HttpStatus.NOT_FOUND);
+        }
+        return user;
+    }
+
+    @Override
     public UserDto create(UserDto dto) {
 
         isUnique(dto);
