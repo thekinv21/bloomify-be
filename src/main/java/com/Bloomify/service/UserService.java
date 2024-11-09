@@ -1,10 +1,10 @@
 package com.Bloomify.service;
 
+import com.Bloomify.dto.SelectDto;
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.model.User;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService{
@@ -13,11 +13,13 @@ public interface UserService{
 
     List<UserDto> getAllActive();
 
+    List<SelectDto<UUID>> getForSelect();
+
     UserDto getById(UUID id);
 
-    UserDto getOptDtoById(UUID id);
+    UserDto getActiveById(UUID id);
 
-    User getOptEntityById(UUID id);
+    User getEntityById(UUID id);
 
     UserDto getByEmail(String email);
 

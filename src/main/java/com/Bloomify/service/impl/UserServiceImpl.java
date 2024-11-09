@@ -1,6 +1,7 @@
 package com.Bloomify.service.impl;
 
 
+import com.Bloomify.dto.SelectDto;
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.exception.CustomException;
 import com.Bloomify.mapper.UserMapper;
@@ -43,22 +44,29 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
-    public UserDto getById(UUID id) {
-        return this.getOptDtoById(id);
+    public List<SelectDto<UUID>> getForSelect() {
+        return userRepository.findAllByIsActiveTrue().
+                stream().map(userMapper::toSelectDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public UserDto getOptDtoById(UUID id) {
+    public UserDto getById(UUID id) {
         return userMapper.toDto(userRepository.findById(id)
                 .orElseThrow(() -> new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND)));
     }
 
     @Override
-    public User getOptEntityById(UUID id) {
+    public UserDto getActiveById(UUID id) {
+        return userMapper.toDto(userRepository.findByIdAndIsActiveTrue(id)
+                .orElseThrow(() -> new CustomException("Active User with ID: " + id + " not found", HttpStatus.NOT_FOUND)));
+    }
+
+    @Override
+    public User getEntityById(UUID id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException("User Entity with ID: " + id + " not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -96,7 +104,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto dto) {
-        User existingUser = getOptEntityById(dto.getId());
+        User existingUser = this.getEntityById(dto.getId());
 
         existingUser.setUsername(dto.getUsername());
         existingUser.setEmail(dto.getEmail());
@@ -111,14 +119,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void toggle(UUID id) {
-        UserDto user = this.getById(id);
-        user.setActive(!user.isActive);
-        userMapper.toDto(userRepository.save(userMapper.toEntity(user)));
+        User user = this.getEntityById(id);
+        user.setIsActive(!user.isActive);
+        userRepository.save(user);
     }
+
 
     @Override
     public void delete(UUID id) {
-        this.getOptEntityById(id);
+        this.getEntityById(id);
         userRepository.deleteById(id);
     }
 
