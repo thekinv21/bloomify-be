@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -83,9 +84,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDto create(RoleDto dto) {
-        RoleDto isExistRole = this.getByRoleName(dto.getName());
+        Optional<Role> isExistRole = roleRepository.findByNameAndIsActiveTrue(dto.getName());
 
-        if (isExistRole != null) {
+        if (isExistRole.isPresent()) {
             throw new CustomException("Role with name: " + dto.getName() + " already exists", HttpStatus.CONFLICT);
         }
         return roleMapper.toDto(roleRepository.save(roleMapper.toEntity(dto)));

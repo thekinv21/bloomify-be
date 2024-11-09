@@ -1,11 +1,13 @@
 package com.Bloomify.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,10 +16,8 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 
-public class Role extends BaseEntity{
+public class Role extends BaseEntity implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,16 @@ public class Role extends BaseEntity{
 
     private Boolean isActive;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "roles")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
+
+
+    @Override
+    public String getAuthority() {
+        return this.name;
+    }
 }
