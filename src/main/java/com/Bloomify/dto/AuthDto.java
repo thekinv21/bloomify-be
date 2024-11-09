@@ -1,16 +1,19 @@
 package com.Bloomify.dto;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 public class AuthDto {
     private UserDto user;
-    private TokenDto tokens;
+    private String accessToken;
+    private String refreshToken;
+    private Instant expiresAt;
 
     @Data
     public static class LoginDto {
@@ -22,6 +25,6 @@ public class AuthDto {
     public static class TokenDto {
         private String accessToken;
         private String refreshToken;
-        private LocalDateTime expiresAt;
+        private Instant expiresAt;
     }
 }
