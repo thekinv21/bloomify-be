@@ -10,7 +10,6 @@ import com.Bloomify.service.RoleService;
 import com.Bloomify.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -113,9 +112,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void toggle(UUID id) {
         User user = this.getEntityById(id);
-        if (user == null) {
-            throw new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND);
-        }
         user.setIsActive(!user.isActive);
         userRepository.save(user);
     }
@@ -123,11 +119,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(UUID id) {
-        User user = this.getEntityById(id);
-        if (user == null) {
-            throw new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND);
-        }
-        userRepository.deleteById(user.getId());
+        this.getEntityById(id);
+        userRepository.deleteById(id);
     }
 
 

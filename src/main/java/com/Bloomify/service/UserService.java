@@ -2,7 +2,6 @@ package com.Bloomify.service;
 
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.model.User;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 import java.util.UUID;
