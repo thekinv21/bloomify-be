@@ -10,6 +10,7 @@ import com.Bloomify.service.RoleService;
 import com.Bloomify.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -43,22 +44,22 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public UserDto getById(UUID id) {
-        return this.getOptDtoById(id);
-    }
-
-    @Override
-    public UserDto getOptDtoById(UUID id) {
         return userMapper.toDto(userRepository.findById(id)
                 .orElseThrow(() -> new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND)));
     }
 
     @Override
-    public User getOptEntityById(UUID id) {
+    public UserDto getActiveById(UUID id) {
+        return userMapper.toDto(userRepository.findByIdAndIsActiveTrue(id)
+                .orElseThrow(() -> new CustomException("Active User with ID: " + id + " not found", HttpStatus.NOT_FOUND)));
+    }
+
+    @Override
+    public User getEntityById(UUID id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new CustomException("User Entity with ID: " + id + " not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto update(UserDto dto) {
-        User existingUser = getOptEntityById(dto.getId());
+        User existingUser = this.getEntityById(dto.getId());
 
         existingUser.setUsername(dto.getUsername());
         existingUser.setEmail(dto.getEmail());
@@ -111,15 +112,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void toggle(UUID id) {
-        UserDto user = this.getById(id);
-        user.setActive(!user.isActive);
-        userMapper.toDto(userRepository.save(userMapper.toEntity(user)));
+        User user = this.getEntityById(id);
+        if (user == null) {
+            throw new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND);
+        }
+        user.setIsActive(!user.isActive);
+        userRepository.save(user);
     }
+
 
     @Override
     public void delete(UUID id) {
-        this.getOptEntityById(id);
-        userRepository.deleteById(id);
+        User user = this.getEntityById(id);
+        if (user == null) {
+            throw new CustomException("User with ID: " + id + " not found", HttpStatus.NOT_FOUND);
+        }
+        userRepository.deleteById(user.getId());
     }
 
 

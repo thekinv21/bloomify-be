@@ -2,9 +2,9 @@ package com.Bloomify.service;
 
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.model.User;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface UserService{
@@ -15,9 +15,9 @@ public interface UserService{
 
     UserDto getById(UUID id);
 
-    UserDto getOptDtoById(UUID id);
+    UserDto getActiveById(UUID id);
 
-    User getOptEntityById(UUID id);
+    User getEntityById(UUID id);
 
     UserDto getByEmail(String email);
 

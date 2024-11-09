@@ -30,8 +30,12 @@ public class UserController  {
         return CustomApiResponse.builder().data(userService.getAllActive()).build();
     }
 
-
     @GetMapping("/{id}")
+    public ResponseEntity<CustomApiResponse> getActiveById(@PathVariable UUID id) {
+        return CustomApiResponse.builder().data(userService.getActiveById(id)).build();
+    }
+
+    @GetMapping("/admin/{id}")
     public ResponseEntity<CustomApiResponse> getById(@PathVariable UUID id) {
         return CustomApiResponse.builder().data(userService.getById(id)).build();
     }
@@ -61,14 +65,16 @@ public class UserController  {
     }
 
     @PatchMapping("/{id}")
-    public void toggle(@PathVariable UUID id) {
+    public ResponseEntity<Void> toggle(@PathVariable UUID id) {
         userService.toggle(id);
+        return ResponseEntity.ok().build();
     }
 
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         userService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }
