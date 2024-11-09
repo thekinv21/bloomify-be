@@ -32,7 +32,7 @@ public class AuthController {
 
     @Operation(summary = "Refresh authentication token", operationId = "refreshToken")
     @PostMapping("/refreshToken")
-    public ResponseEntity<CustomApiResponse> refreshToken(@RequestBody AuthDto.RefreshTokenDto dto) {
+    public ResponseEntity<CustomApiResponse> refreshToken(@RequestBody AuthDto.TokenDto dto) {
         return CustomApiResponse.builder().data(authService.refreshToken(dto)).build();
     }
 
