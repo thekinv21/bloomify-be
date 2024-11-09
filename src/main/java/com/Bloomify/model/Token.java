@@ -15,10 +15,16 @@ public class Token {
     private String username;
 
     @Column(nullable = false, unique = true, length = 2000)
-    private String token;
+    private String accessToken;
+
+    @Column(nullable = false, unique = true, length = 2000)
+    private String refreshToken;
 
     @Column
-    private Instant expiryDate;
+    private Instant accessTokenExpiryDate;
+
+    @Column
+    private Instant refreshTokenExpiryDate;
 
     private boolean valid;
 }
