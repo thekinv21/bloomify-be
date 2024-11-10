@@ -3,6 +3,7 @@ package com.Bloomify.service.impl;
 
 import com.Bloomify.dto.AuthDto;
 import com.Bloomify.dto.UserDto;
+import com.Bloomify.exception.CustomException;
 import com.Bloomify.model.Token;
 import com.Bloomify.repository.TokenRepository;
 import com.Bloomify.service.TokenService;
@@ -14,6 +15,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -54,15 +56,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public String generateRefreshToken(String username) {
-        Instant expirationTime = Instant.now().plus(Duration.ofMinutes(refreshTokenExpiryDuration));
-        Token refreshToken = new Token();
-        refreshToken.setUsername(username);
-        refreshToken.setValid(true);
-        refreshToken.setRefreshTokenExpiryDate(expirationTime);
-        refreshToken.setRefreshToken(UUID.randomUUID().toString());
-        refreshToken = tokenRepository.save(refreshToken);
-
-        return refreshToken.getRefreshToken();
+        return UUID.randomUUID().toString();
     }
 
     @Override
@@ -122,13 +116,6 @@ public class TokenServiceImpl implements TokenService {
         //RETURN WITH NEW TOKENS
         return getTokensDto(user);
 
-    }
-
-    @Override
-    public void addToBlackList(AuthDto.TokenDto dto) {
-        Token token = tokenRepository.findByAccessTokenAndValidTrue(dto.getAccessToken());
-        token.setValid(false);
-        tokenRepository.save(token);
     }
 
 

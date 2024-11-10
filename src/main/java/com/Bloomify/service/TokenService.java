@@ -19,5 +19,4 @@ public interface TokenService {
 
     AuthDto getTokensDto(UserDto dto);
 
-    void addToBlackList(AuthDto.TokenDto dto);
 }
