@@ -1,7 +1,5 @@
 package com.Bloomify.model;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,8 +10,6 @@ import java.util.UUID;
 @Table(name = "USERS")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 
 public class User extends BaseEntity {
 
@@ -37,12 +33,11 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "boolean default true")
     public Boolean isActive;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
 
 }

@@ -4,11 +4,15 @@ import com.Bloomify.validation.CreateValidation;
 import com.Bloomify.validation.UpdateValidation;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 
 public class RoleDto extends BaseDto {
 
