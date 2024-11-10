@@ -1,8 +1,5 @@
 package com.Bloomify.security;
 
-import com.Bloomify.mapper.UserMapper;
-import com.Bloomify.model.User;
-import com.Bloomify.repository.UserRepository;
 import com.Bloomify.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,9 +16,8 @@ public class UserDetailsSecurityService implements UserDetailsService {
     private final UserService userService;
 
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserDetailsSecurity(userService.getEntityByUsername(username));
+        return new CustomUserDetails(userService.getEntityByUsername(username));
     }
 }

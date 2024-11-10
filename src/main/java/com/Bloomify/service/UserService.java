@@ -3,6 +3,7 @@ package com.Bloomify.service;
 import com.Bloomify.dto.SelectDto;
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.model.User;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 import java.util.UUID;
@@ -34,4 +35,6 @@ public interface UserService{
     void toggle(UUID id);
 
     void delete(UUID id);
+
+    UUID updateTokenSign(@NotBlank String username);
 }

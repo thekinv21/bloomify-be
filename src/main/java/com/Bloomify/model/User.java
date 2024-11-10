@@ -29,6 +29,7 @@ public class User extends BaseEntity {
     private String password;
     private String avatarPath;
 
+    private UUID tokenSign;
 
     @Column(columnDefinition = "boolean default true")
     public Boolean isActive;

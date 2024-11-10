@@ -103,39 +103,22 @@
 			<version>2.10.1</version>
 		</dependency>
 
-
-		<!-- JSON Web Token (JWT) support -->
-
+		<!--  JWT Dependencies  -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.12.5</version>
+			<version>0.11.5</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.12.5</version>
-			<scope>runtime</scope>
+			<version>0.11.5</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.12.5</version>
-			<scope>runtime</scope>
+			<version>0.11.5</version>
 		</dependency>
-
-		<!-- JSON Web Token (JWT) support -->
-
-		<dependency>
-			<groupId>com.auth0</groupId>
-			<artifactId>java-jwt</artifactId>
-			<version>4.0.0</version>
-		</dependency>
-
 
 		<!-- Security -->
 

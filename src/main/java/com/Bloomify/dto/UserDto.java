@@ -37,6 +37,8 @@ public class UserDto extends BaseDto {
     @NotNull(groups = CreateValidation.class)
     public String password;
 
+    public String token;
+
     public String avatarPath;
 
     public boolean isActive;

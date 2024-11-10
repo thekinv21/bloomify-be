@@ -1,11 +1,11 @@
 package com.Bloomify.controller;
 
-import com.Bloomify.dto.AuthDto;
-import com.Bloomify.dto.UserDto;
+import com.Bloomify.dto.*;
 import com.Bloomify.response.CustomApiResponse;
 import com.Bloomify.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,22 +24,19 @@ public class AuthController {
         return CustomApiResponse.builder().data(authService.register(dto)).build();
     }
 
-    @Operation(summary = "Login a user", operationId = "loginUser")
     @PostMapping("/login")
-    public ResponseEntity<CustomApiResponse> login(@RequestBody AuthDto.LoginDto dto) {
-        return CustomApiResponse.builder().data(authService.login(dto)).build();
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok().body(authService.login(loginRequest));
     }
 
-    @Operation(summary = "Refresh authentication token", operationId = "refreshToken")
-    @PostMapping("/refreshToken")
-    public ResponseEntity<CustomApiResponse> refreshToken(@RequestBody AuthDto.TokenDto dto) {
-        return CustomApiResponse.builder().data(authService.refreshToken(dto)).build();
+    @GetMapping("/get-myself")
+    public ResponseEntity<UserDto> generateServiceToken() {
+        return ResponseEntity.ok().body(authService.getMyself());
     }
 
-    @Operation(summary = "Logout the current user", operationId = "logoutUser")
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody AuthDto.TokenDto dto) {
-        authService.logout(dto);
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LogoutRequest logoutRequest) {
+        authService.logout(logoutRequest);
         return ResponseEntity.ok().build();
     }
 }

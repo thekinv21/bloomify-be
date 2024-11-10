@@ -1,18 +1,16 @@
 package com.Bloomify.service;
 
 
-import com.Bloomify.dto.AuthDto;
-import com.Bloomify.dto.UserDto;
-
+import com.Bloomify.dto.*;
 
 
 public interface AuthService {
 
+    TokenDto login(LoginRequest loginRequest);
+
+    UserDto getMyself();
+
+    void logout(LogoutRequest logoutRequest);
+
     AuthDto register(UserDto dto);
-
-    AuthDto login(AuthDto.LoginDto dto);
-
-    AuthDto refreshToken(AuthDto.TokenDto dto);
-
-    void logout(AuthDto.TokenDto dto);
 }

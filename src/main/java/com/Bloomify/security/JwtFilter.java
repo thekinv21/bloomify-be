@@ -1,9 +1,9 @@
 package com.Bloomify.security;
 
 
-import com.Bloomify.service.TokenService;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import com.Bloomify.service.JwtDecoderService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,10 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -31,66 +28,47 @@ import java.util.Map;
 
 public class JwtFilter extends OncePerRequestFilter {
 
-
-    private final UserDetailsService userDetailsService;
-    private final TokenService tokenService;
-
+    private final JwtDecoderService jwtDecoderService;
+    private final UserDetailsSecurityService userDetailsService;
 
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain) throws ServletException, IOException {
+            @NonNull FilterChain filterChain)
+            throws ServletException, IOException {
 
-        // ACCESS TOKEN VARIABLE
-        final String jwtToken;
-
-        // GET HEADER FROM REQUEST
-        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-        // CHECK HEADER IS NULL OR NOT
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (header == null || !header.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // EXTRACT TOKEN FROM HEADER
-        jwtToken = authHeader.substring(7);
-
-        // DECODE JWT and GET user details with username
-        DecodedJWT decodedJWT;
-        String username;
+        final String jwt = header.substring(7);
 
         try {
-            decodedJWT = tokenService.verifyAccessToken(jwtToken);
-            username = decodedJWT.getSubject();
+            String username = jwtDecoderService.extractUsername(jwt);
+            CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
+
+            if (!jwtDecoderService.isTokenValid(jwt, userDetails.getUser().getTokenSign())) {
+                throw new JwtException("Invalid JWT");
+            }
+
+//        UsernamePasswordAuthenticationToken authToken =
+//                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+            CustomUsernamePasswordAuthenticationToken authToken =
+                    new CustomUsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities(), jwt);
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
         } catch (Exception e) {
-            sendError(response, new Exception("Access Token is Not Valid!"),request);
+            sendError(response, e, request);
             return;
         }
 
-        if (username == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
-
-        // GENERATE NEW AUTH TOKEN
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
-
-        // SET CREATED TOKEN TO SECURITY CONTEXT
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
-        // SET DETAİLS
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-        // FILTER AGAIN
         filterChain.doFilter(request, response);
     }
-
 
     // SEND ERROR FUNCTION
 

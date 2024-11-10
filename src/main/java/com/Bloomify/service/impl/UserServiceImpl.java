@@ -141,6 +141,14 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    @Override
+    public UUID updateTokenSign(String username) {
+        User user = getEntityByUsername(username);
+        var sign = UUID.randomUUID();
+        user.setTokenSign(sign);
+        userRepository.save(user);
+        return sign;
+    }
 
     public void isUnique(UserDto dto) {
         User userWithSameEmail = userRepository.findByEmail(dto.getEmail());
