@@ -15,18 +15,4 @@ public class AuthDto {
     private String refreshToken;
     private Instant accessTokenExpiresAt;
     private Instant refreshTokenExpiresAt;
-
-    @Data
-    public static class LoginDto {
-        private String username;
-        private String password;
-    }
-
-    @Data
-    public static class TokenDto {
-        private String accessToken;
-        private String refreshToken;
-        private Instant accessTokenExpiresAt;
-        private Instant refreshTokenExpiresAt;
-    }
 }
