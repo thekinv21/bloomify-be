@@ -54,9 +54,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 throw new JwtException("Invalid JWT");
             }
 
-//        UsernamePasswordAuthenticationToken authToken =
-//                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
             CustomUsernamePasswordAuthenticationToken authToken =
                     new CustomUsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities(), jwt);
             SecurityContextHolder.getContext().setAuthentication(authToken);

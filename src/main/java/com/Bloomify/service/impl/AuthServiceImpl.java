@@ -1,7 +1,6 @@
 package com.Bloomify.service.impl;
 
 import com.Bloomify.dto.*;
-import com.Bloomify.mapper.UserMapper;
 import com.Bloomify.security.CustomUsernamePasswordAuthenticationToken;
 import com.Bloomify.service.AuthService;
 import com.Bloomify.service.JwtDecoderService;
@@ -46,7 +45,6 @@ public class AuthServiceImpl implements AuthService {
         var user = userService.getByUsername(jwtAuthentication.getName());
         String jwtToken = jwtAuthentication.getToken();
         user.setToken(jwtToken);
-        log.info("JWT Token: {}", jwtToken);
         return user;
     }
 

@@ -155,7 +155,6 @@ public class UserServiceImpl implements UserService {
         User userWithSameUsername = userRepository.findByUsername(dto.getUsername());
 
         if (userWithSameEmail != null || userWithSameUsername != null) {
-            System.out.println("User with the same email or username already exists");
             throw new CustomException("User already exists", HttpStatus.CONFLICT);
         }
     }
