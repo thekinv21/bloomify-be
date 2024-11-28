@@ -16,3 +16,12 @@ spring:
 jwt-variables:
   secret-key: 674c6b706f2fdc13c2b98a6b7f32be947ba4c2a5acf23776295cc1a077a3674e
   expiration-time: 3600000
+
+
+AmazonS3:
+  S3_SECRET_KEY: ${S3_SECRET_KEY}
+  S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+  S3_REGION: ${S3_REGION}
+  S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+
+
