@@ -43,6 +43,5 @@ public class UserDto extends BaseDto {
 
     public boolean isActive;
 
-    @NotNull(groups = {CreateValidation.class, UpdateValidation.class})
     private Set<String> roles;
 }

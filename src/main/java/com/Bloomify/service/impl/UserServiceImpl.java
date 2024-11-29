@@ -1,9 +1,12 @@
 package com.Bloomify.service.impl;
 
 
+import com.Bloomify.enums.RoleEnum;
+import com.Bloomify.dto.RoleDto;
 import com.Bloomify.dto.SelectDto;
 import com.Bloomify.dto.UserDto;
 import com.Bloomify.exception.CustomException;
+import com.Bloomify.mapper.RoleMapper;
 import com.Bloomify.mapper.UserMapper;
 import com.Bloomify.model.User;
 import com.Bloomify.repository.UserRepository;
@@ -14,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -28,6 +32,7 @@ public class UserServiceImpl implements UserService {
     private  final UserMapper userMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final RoleService roleService;
+    private final RoleMapper roleMapper;
 
 
     @Override
@@ -105,8 +110,16 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setAvatarPath(dto.getAvatarPath());
-        user.setRoles(roleService.getRolesByNames(dto.getRoles()
-                .stream().toList()));
+
+        if (dto.getRoles() != null && !dto.getRoles().isEmpty()) {
+            user.setRoles(roleService.getRolesByNames(dto.getRoles().stream().toList()));
+        } else {
+            RoleDto defaultRole = roleService.getByRoleName(RoleEnum.USER.name());
+            if (defaultRole != null) {
+                user.setRoles(Collections.singleton(roleMapper.toEntity((defaultRole))));
+            }
+        }
+
         user.setIsActive(true);
 
         return userMapper.toDto(userRepository.save(user));
