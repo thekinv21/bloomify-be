@@ -56,8 +56,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthDto register(UserDto dto) {
-        return null;
+    public UserDto register(UserDto dto) {
+        return userService.create(dto);
     }
 
 }

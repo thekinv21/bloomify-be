@@ -12,5 +12,5 @@ public interface AuthService {
 
     void logout(LogoutRequest logoutRequest);
 
-    AuthDto register(UserDto dto);
+    UserDto register(UserDto dto);
 }
