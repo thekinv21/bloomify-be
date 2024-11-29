@@ -55,8 +55,8 @@ public class Security {
         return (web) ->
                 web.ignoring()
                         .requestMatchers(
-                                "/api/auth/login",
-                                "/api/auth/register",
+                                "/api/auth/login/**",
+                                "/api/auth/register/**",
                                 "/swagger-resources/**",
                                 "/swagger-ui.html/**",
                                 "/swagger-resources/**",
