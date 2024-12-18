@@ -12,7 +12,11 @@ import com.Bloomify.model.User;
 import com.Bloomify.repository.UserRepository;
 import com.Bloomify.service.RoleService;
 import com.Bloomify.service.UserService;
+import com.Bloomify.spesification.GenericSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,18 +40,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserDto> getAll() {
-        return userRepository.findAll().
-                stream().map(userMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<UserDto> getAll(String searchTerm, Pageable pageable) {
+        Specification<User> spec =
+                Specification.where(
+                        new GenericSpecification<User>().searchBy(List.of("firstName", "lastName", "username"), searchTerm));
+        return userRepository.findAll(spec, pageable).map(userMapper::toDto);
     }
 
     @Override
-    public List<UserDto> getAllActive() {
-        return userRepository.findAllByIsActiveTrue().
-                stream().map(userMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<UserDto> getAllActive(String searchTerm, Pageable pageable) {
+         Specification<User> spec =
+                Specification.where(
+                        new GenericSpecification<User>().searchBy(List.of("firstName", "lastName", "username"), searchTerm));
+        return userRepository.findAll(spec, pageable).map(userMapper::toDto);
     }
+
 
     @Override
     public List<SelectDto<UUID>> getForSelect() {

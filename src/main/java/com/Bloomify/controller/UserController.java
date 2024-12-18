@@ -6,6 +6,9 @@ import com.Bloomify.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +24,24 @@ public class UserController {
 
     @Operation(summary = "Get all users (Admin)", operationId = "getAllUsersAdmin")
     @GetMapping("/admin")
-    public ResponseEntity<CustomApiResponse> getAll() {
-        return CustomApiResponse.builder().data(userService.getAll()).build();
+    public ResponseEntity<CustomApiResponse> getAll(
+            @RequestParam(required = false) String searchTerm,
+            @PageableDefault(size = 10) Pageable pageable
+    ) {
+        return CustomApiResponse.builder()
+                .pageableData(userService.getAll(searchTerm, pageable))
+                .build();
     }
 
     @Operation(summary = "Get all active users", operationId = "getAllActiveUsers")
     @GetMapping
-    public ResponseEntity<CustomApiResponse> getAllActive() {
-        return CustomApiResponse.builder().data(userService.getAllActive()).build();
+    public ResponseEntity<CustomApiResponse> getAllActive(
+            @RequestParam(required = false) String searchTerm,
+            @PageableDefault(size = 10) Pageable pageable
+    ) {
+        return CustomApiResponse.builder()
+                .pageableData(userService.getAllActive(searchTerm, pageable))
+                .build();
     }
 
     @Operation(summary = "Get active user by ID", operationId = "getActiveUserById")
@@ -36,6 +49,7 @@ public class UserController {
     public ResponseEntity<CustomApiResponse> getActiveById(@PathVariable UUID id) {
         return CustomApiResponse.builder().data(userService.getActiveById(id)).build();
     }
+
 
     @Operation(summary = "Get users for select", operationId = "getUsersForSelect")
     @GetMapping("/for-select")
