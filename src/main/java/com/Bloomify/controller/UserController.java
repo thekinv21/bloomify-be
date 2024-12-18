@@ -35,13 +35,8 @@ public class UserController {
 
     @Operation(summary = "Get all active users", operationId = "getAllActiveUsers")
     @GetMapping
-    public ResponseEntity<CustomApiResponse> getAllActive(
-            @RequestParam(required = false) String searchTerm,
-            @PageableDefault(size = 10) Pageable pageable
-    ) {
-        return CustomApiResponse.builder()
-                .pageableData(userService.getAllActive(searchTerm, pageable))
-                .build();
+    public ResponseEntity<CustomApiResponse> getAllActive() {
+        return CustomApiResponse.builder().data(userService.getAllActive()).build();
     }
 
     @Operation(summary = "Get active user by ID", operationId = "getActiveUserById")

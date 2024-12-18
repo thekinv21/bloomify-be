@@ -27,6 +27,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     Page<User> findAll(Specification<User> spec, Pageable pageable);
 
-    Page<User> findAllByIsActiveTrue(Specification<User> spec, Pageable pageable);
 
 }

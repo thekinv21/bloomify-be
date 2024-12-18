@@ -48,11 +48,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDto> getAllActive(String searchTerm, Pageable pageable) {
-         Specification<User> spec =
-                Specification.where(
-                        new GenericSpecification<User>().searchBy(List.of("firstName", "lastName", "username"), searchTerm));
-        return userRepository.findAll(spec, pageable).map(userMapper::toDto);
+    public List<UserDto> getAllActive() {
+        return userRepository.findAllByIsActiveTrue().
+                stream().map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 

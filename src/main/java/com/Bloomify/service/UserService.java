@@ -14,7 +14,7 @@ public interface UserService{
 
     Page<UserDto> getAll(String searchTerm, Pageable pageable);
 
-    Page<UserDto> getAllActive(String searchTerm, Pageable pageable);
+    List<UserDto> getAllActive();
 
     List<SelectDto<UUID>> getForSelect();
 
