@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,6 +20,7 @@ public class RoleController {
 
     @Operation(summary = "Get all roles", operationId = "getAllRolesAdmin")
     @GetMapping("/admin")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> getAll() {
         return CustomApiResponse.builder().data(roleService.getAll()).build();
     }
@@ -43,24 +45,28 @@ public class RoleController {
 
     @Operation(summary = "Get role by ID (Admin)", operationId = "getRoleByIdAdmin")
     @GetMapping("/admin/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> getById(@PathVariable Long id) {
         return CustomApiResponse.builder().data(roleService.getById(id)).build();
     }
 
     @Operation(summary = "Create a new role", operationId = "createRole")
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> create(@RequestBody RoleDto dto) {
         return CustomApiResponse.builder().data(roleService.create(dto)).build();
     }
 
     @Operation(summary = "Update an existing role", operationId = "updateRole")
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> update(@RequestBody RoleDto dto) {
         return CustomApiResponse.builder().data(roleService.update(dto)).build();
     }
 
     @Operation(summary = "Toggle role status", operationId = "toggleRole")
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<Void> toggle(@PathVariable Long id) {
         roleService.toggle(id);
         return ResponseEntity.ok().build();
@@ -68,6 +74,7 @@ public class RoleController {
 
     @Operation(summary = "Delete a role", operationId = "deleteRole")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         roleService.delete(id);
         return ResponseEntity.ok().build();

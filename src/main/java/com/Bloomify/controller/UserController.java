@@ -1,6 +1,7 @@
 package com.Bloomify.controller;
 
 import com.Bloomify.dto.UserDto;
+import com.Bloomify.enums.RoleEnum;
 import com.Bloomify.response.CustomApiResponse;
 import com.Bloomify.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -24,6 +26,7 @@ public class UserController {
 
     @Operation(summary = "Get all users (Admin)", operationId = "getAllUsersAdmin")
     @GetMapping("/admin")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> getAll(
             @RequestParam(required = false) String searchTerm,
             @PageableDefault(size = 10) Pageable pageable
@@ -41,6 +44,7 @@ public class UserController {
 
     @Operation(summary = "Get active user by ID", operationId = "getActiveUserById")
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> getActiveById(@PathVariable UUID id) {
         return CustomApiResponse.builder().data(userService.getActiveById(id)).build();
     }
@@ -54,6 +58,7 @@ public class UserController {
 
     @Operation(summary = "Get user by ID (Admin)", operationId = "getUserByIdAdmin")
     @GetMapping("/admin/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> getById(@PathVariable UUID id) {
         return CustomApiResponse.builder().data(userService.getById(id)).build();
     }
@@ -72,18 +77,21 @@ public class UserController {
 
     @Operation(summary = "Create a new user", operationId = "createUser")
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> create(@RequestBody UserDto dto) {
         return CustomApiResponse.builder().data(userService.create(dto)).build();
     }
 
     @Operation(summary = "Update an existing user", operationId = "updateUser")
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> update(@RequestBody UserDto dto) {
         return CustomApiResponse.builder().data(userService.update(dto)).build();
     }
 
     @Operation(summary = "Toggle user status", operationId = "toggleUser")
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<Void> toggle(@PathVariable UUID id) {
         userService.toggle(id);
         return ResponseEntity.ok().build();
@@ -91,6 +99,7 @@ public class UserController {
 
     @Operation(summary = "Delete a user", operationId = "deleteUser")
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         userService.delete(id);
         return ResponseEntity.ok().build();
