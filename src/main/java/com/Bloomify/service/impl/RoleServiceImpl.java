@@ -3,12 +3,18 @@ package com.Bloomify.service.impl;
 
 import com.Bloomify.dto.RoleDto;
 import com.Bloomify.dto.SelectDto;
+import com.Bloomify.dto.UserDto;
 import com.Bloomify.exception.CustomException;
 import com.Bloomify.mapper.RoleMapper;
 import com.Bloomify.model.Role;
+import com.Bloomify.model.User;
 import com.Bloomify.repository.RoleRepository;
 import com.Bloomify.service.RoleService;
+import com.Bloomify.spesification.GenericSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +32,11 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public List<RoleDto> getAll() {
-        return roleRepository.findAll().
-                stream().map(roleMapper::toDto)
-                .collect(Collectors.toList());
+    public Page<RoleDto> getAll(String searchTerm, Pageable pageable) {
+        Specification<Role> spec =
+                Specification.where(
+                        new GenericSpecification<Role>().searchBy(List.of("name"), searchTerm));
+        return roleRepository.findAll(spec, pageable).map(roleMapper::toDto);
     }
 
     @Override

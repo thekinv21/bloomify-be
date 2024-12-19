@@ -6,6 +6,8 @@ import com.Bloomify.service.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,13 @@ public class RoleController {
     @Operation(summary = "Get all roles", operationId = "getAllRolesAdmin")
     @GetMapping("/admin")
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
-    public ResponseEntity<CustomApiResponse> getAll() {
-        return CustomApiResponse.builder().data(roleService.getAll()).build();
+    public ResponseEntity<CustomApiResponse> getAll(
+            @RequestParam(required = false) String searchTerm,
+            @PageableDefault(size = 10) Pageable pageable
+    ) {
+        return CustomApiResponse.builder()
+                .pageableData(roleService.getAll(searchTerm, pageable))
+                .build();
     }
 
     @Operation(summary = "Get all active roles", operationId = "getAllActiveRoles")
