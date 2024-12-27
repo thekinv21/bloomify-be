@@ -73,7 +73,9 @@ public class FlowerServiceImpl implements FlowerService {
         if (isExistFlower.isPresent()) {
             throw new CustomException("Flower with title: " + dto.getTitle() + " already exists", HttpStatus.CONFLICT);
         }
-        return flowerMapper.toDto(flowerRepository.save(flowerMapper.toEntity(dto)));
+        Flower flower = flowerMapper.toEntity(dto);
+        flower.getFlowerImages().forEach(flowerImage -> flowerImage.setFlower(flower));
+        return flowerMapper.toDto(flowerRepository.save(flower));
     }
 
     @Override

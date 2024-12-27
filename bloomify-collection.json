@@ -127,228 +127,161 @@
       "name": "user",
       "item": [
         {
-          "name": "get-all-active",
+          "name": "Get all Users (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/admin?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "admin"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all Active Users",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/user",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user"]
             }
           },
           "response": []
         },
         {
-          "name": "get-by-id",
+          "name": "Get Active User by ID",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/user/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "{{id}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "{{id}}"]
             }
           },
           "response": []
         },
         {
-          "name": "get-all-for-admin",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/user/admin",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "admin"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get-by-id-for-admin",
+          "name": "Get User by ID (Admin)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/user/admin/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "admin",
-                "{{id}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "admin", "{{id}}"]
             }
           },
           "response": []
         },
         {
-          "name": "get-by-username",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/user/username/{{username}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "username",
-                "{{username}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get-by-email",
+          "name": "Get User by Email",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/user/email/{{email}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "email",
-                "{{email}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "email", "{{email}}"]
             }
           },
           "response": []
         },
         {
-          "name": "get-for-select",
+          "name": "Get User by Username",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/username/{{username}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "username", "{{username}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Users for Select",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/user/for-select",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "for-select"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "for-select"]
             }
           },
           "response": []
         },
         {
-          "name": "create",
+          "name": "Create a New User",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
             "body": {
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              },
               "mode": "raw",
-              "raw": "{\n \"firstName\": \"John\",\n\"lastName\": \"Doe\",\n\"username\": \"watson\",\n \"email\": \"watson@example.com\",\n \"password\": \"pass\",\n\"avatarPath\": \"/path/to/avatar\",\n\"isActive\": true,\n\"roles\": [\"ROLE_USER\"]\n}"
+              "raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"username\": \"johndoe\",\n    \"email\": \"john.doe@example.com\",\n    \"password\": \"securePassword\",\n    \"roles\": [\"ROLE_USER\"],\n    \"isActive\": true\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/user",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user"]
             }
           },
           "response": []
         },
         {
-          "name": "update",
+          "name": "Update an Existing User",
           "request": {
             "method": "PUT",
-            "header": [],
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
             "body": {
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              },
               "mode": "raw",
-              "raw": "{\n \"id\": \"{{userId}}\",\n \"firstName\": \"John\",\n \"lastName\": \"Doe\",\n \"username\": \"watson\",\n  \"email\": \"watson@example.com\",\n  \"avatarPath\": \"/path/to/avatar\",\n \"isActive\": true,\n \"roles\": [\"ROLE_USER\"]\n }"
+              "raw": "{\n    \"id\": \"{{userId}}\",\n    \"firstName\": \"John Updated\",\n    \"lastName\": \"Doe Updated\",\n    \"username\": \"john_doe\",\n    \"email\": \"john.doe_updated@example.com\",\n    \"roles\": [\"ROLE_ADMIN\"],\n    \"isActive\": true\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/api/user",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user"]
             }
           },
           "response": []
         },
         {
-          "name": "delete",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/user/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "{{id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "toggle",
+          "name": "Toggle User Status",
           "request": {
             "method": "PATCH",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/user/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "user",
-                "{{id}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a User",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "{{id}}"]
             }
           },
           "response": []
@@ -361,188 +294,135 @@
       "name": "role",
       "item": [
         {
-          "name": "get-all-active",
+          "name": "Get all Roles (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/role/admin?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role", "admin"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all Active Roles",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/role",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role"]
             }
           },
           "response": []
         },
         {
-          "name": "get-by-id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/role/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role",
-                "{{id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get-all-for-admin",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/role/admin",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role",
-                "admin"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get-by-id-for-admin",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/role/admin/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role",
-                "admin",
-                "{{id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get-for-select",
+          "name": "Get Roles for Select",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/role/for-select",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role",
-                "for-select"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role", "for-select"]
             }
           },
           "response": []
         },
         {
-          "name": "create",
+          "name": "Get Active Role by ID",
           "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              },
-              "mode": "raw",
-              "raw": "{\n \"name\": \"ADMIN\",\n \"isActive\": true\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/role",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update",
-          "request": {
-            "method": "PUT",
-            "header": [],
-            "body": {
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              },
-              "mode": "raw",
-              "raw": "{\n \"id\": \"{{roleId}}\", \n \"name\": \"ADMIN\",\n \"isActive\": true\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/role",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete",
-          "request": {
-            "method": "DELETE",
+            "method": "GET",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/role/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role",
-                "{{id}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role", "{{id}}"]
             }
           },
           "response": []
         },
         {
-          "name": "toggle",
+          "name": "Get Role by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/role/admin/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role", "admin", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a New Role",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"ADMIN\",\n    \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/role",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update an Existing Role",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"{{roleId}}\",\n    \"name\": \"ADMIN_UPDATED\",\n    \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/role",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Role Status",
           "request": {
             "method": "PATCH",
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/role/{{id}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "role",
-                "{{id}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Role",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/role/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "role", "{{id}}"]
             }
           },
           "response": []
@@ -576,20 +456,334 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/image-upload",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "image-upload"
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "image-upload"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "upload-multiple-images",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": "{{your_image_file_1}}"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": "{{your_image_file_2}}"
+                },
+                {
+                  "key": "images",
+                  "type": "file",
+                  "src": "{{your_image_file_3}}"
+                }
               ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/image-upload/multiple",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "image-upload", "multiple"]
             }
           },
           "response": []
         }
+      ]
+    },
 
+
+    {
+      "name": "flower",
+      "item": [
+        {
+          "name": "Get all Flowers (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/admin?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "admin"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all active Flowers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get active Flower by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Flower by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/admin/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "admin", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a new Flower",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Blue Rose Fantasy\",\n    \"description\": \"Mystical and rare blue roses.\",\n    \"price\": 50.00,\n    \"currency\": \"USD\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n    \"height\": 40,\n    \"width\": 30,\n    \"isActive\": true,\n    \"order\": 5,\n    \"flowerImages\": [\n        {\n            \"imageTitle\": \"pink_rose_1.webp\",\n            \"imageCost\": \"0.07 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n            \"order\": 1\n        },\n        {\n            \"imageTitle\": \"pink_rose_2.jpeg\",\n            \"imageCost\": \"0.01 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/22deac78-ccc9-431e-b4e6-21109dbef18d_pink_rose_2.jpeg\",\n            \"order\": 2\n        },\n        {\n            \"imageTitle\": \"pink_rose_3.jpg\",\n            \"imageCost\": \"0.06 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/b5be2119-441a-4c10-8a36-d8de92731d61_pink_rose_3.jpg\",\n            \"order\": 3\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/flower",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update an existing Flower",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"{{flowerId}}\",\n    \"title\": \"Updated Rose Fantasy\",\n    \"description\": \"Updated mystical and rare blue roses.\",\n    \"price\": 55.00,\n    \"currency\": \"USD\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/updated_image.webp\",\n    \"height\": 45,\n    \"width\": 35,\n    \"isActive\": true,\n    \"order\": 6\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/flower",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Flower status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Flower",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "{{id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+
+
+    {
+      "name": "flower-image",
+      "item": [
+        {
+          "name": "Get all Flower Images (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image/admin?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image", "admin"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all active Flower Images",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get active Flower Image by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Flower Image by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image/admin/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image", "admin", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get active Flower Images by Flower ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image/flower/{{flowerId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image", "flower", "{{flowerId}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a new Flower Image",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"imageTitle\": \"pink_rose_1.webp\",\n    \"imageCost\": \"0.07 MB\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n    \"order\": 1\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update an existing Flower Image",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"{{flowerImageId}}\",\n    \"imageTitle\": \"pink_rose_updated.webp\",\n    \"imageCost\": \"0.08 MB\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/updated_pink_rose.webp\",\n    \"order\": 2\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Flower Image status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Flower Image",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower-image/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower-image", "{{id}}"]
+            }
+          },
+          "response": []
+        }
       ]
     }
+
+
+
   ],
   "auth": {
     "type": "bearer",
