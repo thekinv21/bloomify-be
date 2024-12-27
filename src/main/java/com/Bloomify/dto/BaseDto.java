@@ -1,5 +1,6 @@
 package com.Bloomify.dto;
 
+import com.Bloomify.validation.CreateValidation;
 import jakarta.validation.constraints.Null;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,10 +12,12 @@ import java.time.LocalDateTime;
 @Setter
 public class BaseDto {
 
-    @Null
+    @Null(groups = {CreateValidation.class})
     private LocalDateTime createdAt;
 
-    @Null
+    @Null(groups = {CreateValidation.class})
     private LocalDateTime updatedAt;
 
 }
+
+
