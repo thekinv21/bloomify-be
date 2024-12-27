@@ -80,8 +80,10 @@ public class FlowerServiceImpl implements FlowerService {
 
     @Override
     public FlowerDto update(FlowerDto dto) {
-        this.getById(dto.getId());
-        return flowerMapper.toDto(flowerRepository.save(flowerMapper.toEntity(dto)));
+        Flower existingFlower = this.getFlowerEntityById(dto.getId());
+        flowerMapper.updateFromDto(dto,existingFlower);
+        existingFlower.getFlowerImages().forEach(img -> img.setFlower(existingFlower));
+        return flowerMapper.toDto(flowerRepository.save(existingFlower));
     }
 
     @Override

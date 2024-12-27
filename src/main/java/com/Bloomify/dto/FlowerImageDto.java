@@ -21,7 +21,6 @@ public class FlowerImageDto extends BaseDto {
     @NotNull(groups = {UpdateValidation.class,CreateValidation.class})
     public String imageTitle;
 
-    @NotNull(groups = {UpdateValidation.class,CreateValidation.class})
     public String imageCost;
 
     @NotNull(groups = {UpdateValidation.class,CreateValidation.class})

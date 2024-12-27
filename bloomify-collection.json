@@ -595,10 +595,10 @@
             "header": [
               { "key": "Content-Type", "value": "application/json" }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"id\": \"{{flowerId}}\",\n    \"title\": \"Updated Rose Fantasy\",\n    \"description\": \"Updated mystical and rare blue roses.\",\n    \"price\": 55.00,\n    \"currency\": \"USD\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/updated_image.webp\",\n    \"height\": 45,\n    \"width\": 35,\n    \"isActive\": true,\n    \"order\": 6\n}"
-            },
+           "body": {
+             "mode": "raw",
+             "raw": "{\n  \"id\": \"{{flowerId}}\",\n  \"title\": \"Updated Rose Fantasy\",\n  \"description\": \"Updated mystical and rare blue roses.\",\n  \"price\": 55.00,\n  \"currency\": \"USD\",\n  \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/updated_image.webp\",\n  \"height\": 45,\n  \"width\": 35,\n  \"isActive\": true,\n  \"order\": 6,\n  \"flowerImages\": [\n    {\n      \"id\": \"{{flowerImageId1}}\",\n      \"imageTitle\": \"pink_rose_1.webp\",\n      \"imageCost\": \"0.07 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n      \"order\": 1\n    },\n    {\n      \"id\": \"{{flowerImageId2}}\",\n      \"imageTitle\": \"pink_rose_2.jpeg\",\n      \"imageCost\": \"0.01 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/22deac78-ccc9-431e-b4e6-21109dbef18d_pink_rose_2.jpeg\",\n      \"order\": 2\n    },\n    {\n      \"id\": \"{{flowerImageId3}}\",\n      \"imageTitle\": \"pink_rose_3.jpg\",\n      \"imageCost\": \"0.06 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/b5be2119-441a-4c10-8a36-d8de92731d61_pink_rose_3.jpg\",\n      \"order\": 3\n    }\n  ]\n}"
+           },
             "url": {
               "raw": "{{baseUrl}}/api/flower",
               "host": ["{{baseUrl}}"],
