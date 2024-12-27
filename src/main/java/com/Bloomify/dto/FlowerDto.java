@@ -42,5 +42,7 @@ public class FlowerDto extends BaseDto {
     public int width;
 
     public Boolean isActive;
+
+    @NotNull(groups = {UpdateValidation.class, CreateValidation.class})
     public List<FlowerImageDto> images;
 }
