@@ -1,6 +1,9 @@
 package com.Bloomify.model;
 
+import com.Bloomify.validation.CreateValidation;
+import com.Bloomify.validation.UpdateValidation;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +19,11 @@ public class FlowerImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false , unique = true )
+    public String imageTitle;
+
+    public String imageCost;
 
     @Column(nullable = false)
     private String imageUrl;
