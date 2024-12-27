@@ -71,10 +71,6 @@ public class FlowerImageServiceImpl implements FlowerImageService {
 
     @Override
     public FlowerImageDto create(FlowerImageDto dto) {
-        Optional<FlowerImage> isExistFlowerImage = flowerImageRepository.findByImageTitleAndIsActiveTrue(dto.getImageTitle());
-        if (isExistFlowerImage.isPresent()) {
-            throw new CustomException("FlowerImage with title: " + dto.getImageTitle() + " already exists", HttpStatus.CONFLICT);
-        }
         return flowerImageMapper.toDto(flowerImageRepository.save(flowerImageMapper.toEntity(dto)));
     }
 

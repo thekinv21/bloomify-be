@@ -1,9 +1,6 @@
 package com.Bloomify.model;
 
-import com.Bloomify.validation.CreateValidation;
-import com.Bloomify.validation.UpdateValidation;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +12,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FlowerImage {
+public class FlowerImage extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false , unique = true )
+    @Column(nullable = false)
     public String imageTitle;
 
     public String imageCost;
@@ -29,8 +26,24 @@ public class FlowerImage {
     private String imageUrl;
 
     private Boolean isActive;
+    private Boolean isMainImage;
+
+    @Column(name = "flower_image_order")
+    private Integer order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flower_id", nullable = false)
     private Flower flower;
+
+
+    @PrePersist
+    public void defaultIsActive() {
+        if (isActive == null) {
+            isActive = Boolean.TRUE;
+        }
+
+        if (isMainImage == null) {
+            isMainImage = Boolean.FALSE;
+        }
+    }
 }
