@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -42,7 +43,8 @@ public class FlowerDto extends BaseDto {
     public int width;
 
     public Boolean isActive;
+    public Integer order;
 
-    @NotNull(groups = {UpdateValidation.class, CreateValidation.class})
-    public List<FlowerImageDto> images;
+
+    public List<FlowerImageDto> flowerImages = new ArrayList<>();
 }

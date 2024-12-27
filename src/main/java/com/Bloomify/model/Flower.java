@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -38,14 +39,21 @@ public class Flower extends BaseEntity {
     private int height;
     private int width;
 
+    @Column(name = "flower_order")
+    private Integer order;
     private Boolean isActive;
-
 
     @OneToMany(
             mappedBy = "flower",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    public List<FlowerImage> images;
+    public List<FlowerImage> flowerImages = new ArrayList<>();
 
+
+    public void defaultIsActive() {
+        if (isActive == null) {
+            isActive = Boolean.TRUE;
+        }
+    }
 }
