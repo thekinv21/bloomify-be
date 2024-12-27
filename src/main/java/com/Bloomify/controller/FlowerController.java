@@ -26,7 +26,7 @@ public class FlowerController {
     @PreAuthorize("hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     public ResponseEntity<CustomApiResponse> getAll(
             @RequestParam(required = false) String searchTerm,
-            @PageableDefault(size = 10) Pageable pageable
+            @PageableDefault() Pageable pageable
     ) {
         return CustomApiResponse.builder()
                 .pageableData(flowerService.getAll(searchTerm, pageable))
@@ -37,7 +37,7 @@ public class FlowerController {
     @GetMapping
     public ResponseEntity<CustomApiResponse> getAllActive(
             @RequestParam(required = false) String searchTerm,
-            @PageableDefault(size = 10) Pageable pageable
+            @PageableDefault() Pageable pageable
     ) {
         return CustomApiResponse.builder()
                 .pageableData(flowerService.getAllActive(searchTerm, pageable))
