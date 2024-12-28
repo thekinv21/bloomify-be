@@ -28,7 +28,7 @@ public class FlowerImageDto extends BaseDto {
 
     public Boolean isMainImage;
 
-    public Integer order;
     public Boolean isActive;
+    public Integer order;
 
 }
