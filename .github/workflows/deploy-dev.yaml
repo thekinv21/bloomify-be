@@ -20,7 +20,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd /home/bloomify-be
+            cd /var/www/bloomify-be
             git reset --hard
             git checkout dev
             git pull origin dev
