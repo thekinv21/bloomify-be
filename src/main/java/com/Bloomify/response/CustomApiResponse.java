@@ -26,8 +26,8 @@ import java.time.LocalDateTime;
         "pageSize",
         "totalElements",
         "totalPages",
-        "isLast",
         "isFirst",
+        "isLast",
         "isEmpty",
         "content",
 })
