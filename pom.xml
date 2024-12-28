@@ -9,10 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Bloomify</groupId>
-	<artifactId>bloomify-be</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>bloomify-be</name>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<artifactId>bloomify-be</artifactId>
+	<packaging>war</packaging>
 	<description>Bloomify Flowers Backend with Spring Boot</description>
 	<url/>
 	<licenses>
@@ -27,9 +30,6 @@
 		<tag/>
 		<url/>
 	</scm>
-	<properties>
-		<java.version>17</java.version>
-	</properties>
 	<dependencies>
 
 		<!-- for relate with Database  -->

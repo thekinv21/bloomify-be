@@ -1,14 +1,12 @@
 package com.Bloomify.controller;
 
 import com.Bloomify.dto.UserDto;
-import com.Bloomify.enums.RoleEnum;
 import com.Bloomify.response.CustomApiResponse;
 import com.Bloomify.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
