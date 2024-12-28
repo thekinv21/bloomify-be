@@ -503,140 +503,6 @@
       ]
     },
 
-
-    {
-      "name": "flower",
-      "item": [
-        {
-          "name": "Get all Flowers (Admin)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/flower/admin?page=0&size=10&searchTerm=",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower", "admin"],
-              "query": [
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "10" },
-                { "key": "searchTerm", "value": "" }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get all active Flowers",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/flower?page=0&size=10&searchTerm=",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower"],
-              "query": [
-                { "key": "page", "value": "0" },
-                { "key": "size", "value": "10" },
-                { "key": "searchTerm", "value": "" }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get active Flower by ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/flower/{{id}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower", "{{id}}"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Flower by ID (Admin)",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/flower/admin/{{id}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower", "admin", "{{id}}"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create a new Flower",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"title\": \"Blue Rose Fantasy\",\n    \"description\": \"Mystical and rare blue roses.\",\n    \"price\": 50.00,\n    \"currency\": \"USD\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n    \"height\": 40,\n    \"width\": 30,\n    \"isActive\": true,\n    \"order\": 5,\n    \"flowerImages\": [\n        {\n            \"imageTitle\": \"pink_rose_1.webp\",\n            \"imageCost\": \"0.07 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n            \"order\": 1\n        },\n        {\n            \"imageTitle\": \"pink_rose_2.jpeg\",\n            \"imageCost\": \"0.01 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/22deac78-ccc9-431e-b4e6-21109dbef18d_pink_rose_2.jpeg\",\n            \"order\": 2\n        },\n        {\n            \"imageTitle\": \"pink_rose_3.jpg\",\n            \"imageCost\": \"0.06 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/b5be2119-441a-4c10-8a36-d8de92731d61_pink_rose_3.jpg\",\n            \"order\": 3\n        }\n    ]\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/flower",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update an existing Flower",
-          "request": {
-            "method": "PUT",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-           "body": {
-             "mode": "raw",
-             "raw": "{\n  \"id\": \"{{flowerId}}\",\n  \"title\": \"Updated Rose Fantasy\",\n  \"description\": \"Updated mystical and rare blue roses.\",\n  \"price\": 55.00,\n  \"currency\": \"USD\",\n  \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/updated_image.webp\",\n  \"height\": 45,\n  \"width\": 35,\n  \"isActive\": true,\n  \"order\": 6,\n  \"flowerImages\": [\n    {\n      \"id\": \"{{flowerImageId1}}\",\n      \"imageTitle\": \"pink_rose_1.webp\",\n      \"imageCost\": \"0.07 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n      \"order\": 1\n    },\n    {\n      \"id\": \"{{flowerImageId2}}\",\n      \"imageTitle\": \"pink_rose_2.jpeg\",\n      \"imageCost\": \"0.01 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/22deac78-ccc9-431e-b4e6-21109dbef18d_pink_rose_2.jpeg\",\n      \"order\": 2\n    },\n    {\n      \"id\": \"{{flowerImageId3}}\",\n      \"imageTitle\": \"pink_rose_3.jpg\",\n      \"imageCost\": \"0.06 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/b5be2119-441a-4c10-8a36-d8de92731d61_pink_rose_3.jpg\",\n      \"order\": 3\n    }\n  ]\n}"
-           },
-            "url": {
-              "raw": "{{baseUrl}}/api/flower",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Toggle Flower status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/flower/{{id}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower", "{{id}}"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete a Flower",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/flower/{{id}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "flower", "{{id}}"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-
-
     {
       "name": "flower-image",
       "item": [
@@ -780,9 +646,139 @@
           "response": []
         }
       ]
+    },
+
+    {
+      "name": "flower",
+      "item": [
+        {
+          "name": "Get all Flowers (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/admin?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "admin"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all active Flowers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower?page=0&size=10&searchTerm=",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower"],
+              "query": [
+                { "key": "page", "value": "0" },
+                { "key": "size", "value": "10" },
+                { "key": "searchTerm", "value": "" }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get active Flower by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Flower by ID (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/admin/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "admin", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a new Flower",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Blue Rose Fantasy\",\n    \"description\": \"Mystical and rare blue roses.\",\n    \"price\": 50.00,\n    \"currency\": \"USD\",\n    \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n    \"height\": 40,\n    \"width\": 30,\n    \"isActive\": true,\n    \"order\": 5,\n    \"flowerImages\": [\n        {\n            \"imageTitle\": \"pink_rose_1.webp\",\n            \"imageCost\": \"0.07 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n            \"order\": 1\n        },\n        {\n            \"imageTitle\": \"pink_rose_2.jpeg\",\n            \"imageCost\": \"0.01 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/22deac78-ccc9-431e-b4e6-21109dbef18d_pink_rose_2.jpeg\",\n            \"order\": 2\n        },\n        {\n            \"imageTitle\": \"pink_rose_3.jpg\",\n            \"imageCost\": \"0.06 MB\",\n            \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/b5be2119-441a-4c10-8a36-d8de92731d61_pink_rose_3.jpg\",\n            \"order\": 3\n        }\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/flower",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update an existing Flower",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+           "body": {
+             "mode": "raw",
+             "raw": "{\n  \"id\": \"{{flowerId}}\",\n  \"title\": \"Updated Rose Fantasy\",\n  \"description\": \"Updated mystical and rare blue roses.\",\n  \"price\": 55.00,\n  \"currency\": \"USD\",\n  \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/updated_image.webp\",\n  \"height\": 45,\n  \"width\": 35,\n  \"isActive\": true,\n  \"order\": 6,\n  \"flowerImages\": [\n    {\n      \"id\": \"{{flowerImageId1}}\",\n      \"imageTitle\": \"pink_rose_1.webp\",\n      \"imageCost\": \"0.07 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/e83d36af-04f2-41b7-afef-900e2cb1b62f_pink_rose_1.webp\",\n      \"order\": 1\n    },\n    {\n      \"id\": \"{{flowerImageId2}}\",\n      \"imageTitle\": \"pink_rose_2.jpeg\",\n      \"imageCost\": \"0.01 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/22deac78-ccc9-431e-b4e6-21109dbef18d_pink_rose_2.jpeg\",\n      \"order\": 2\n    },\n    {\n      \"id\": \"{{flowerImageId3}}\",\n      \"imageTitle\": \"pink_rose_3.jpg\",\n      \"imageCost\": \"0.06 MB\",\n      \"imageUrl\": \"https://s3.eu-central-1.amazonaws.com/bloomify-images/b5be2119-441a-4c10-8a36-d8de92731d61_pink_rose_3.jpg\",\n      \"order\": 3\n    }\n  ]\n}"
+           },
+            "url": {
+              "raw": "{{baseUrl}}/api/flower",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle Flower status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "{{id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a Flower",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/flower/{{id}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "flower", "{{id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
     }
-
-
 
   ],
   "auth": {
