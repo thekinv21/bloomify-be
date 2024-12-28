@@ -24,18 +24,17 @@ public class StarterConfig implements CommandLineRunner {
         //dummyData();
     }
 
-
     private void dummyData() {
 
         try {
 
-            RoleDto ADMIN_ROLE_DTO = new RoleDto();
-            ADMIN_ROLE_DTO.setName("ADMIN");
-            ADMIN_ROLE_DTO.setIsActive(true);
-
             RoleDto USER_ROLE_DTO = new RoleDto();
             USER_ROLE_DTO.setName("USER");
             USER_ROLE_DTO.setIsActive(true);
+
+            RoleDto ADMIN_ROLE_DTO = new RoleDto();
+            ADMIN_ROLE_DTO.setName("ADMIN");
+            ADMIN_ROLE_DTO.setIsActive(true);
 
             RoleDto SUPER_ADMIN_ROLE_DTO = new RoleDto();
             SUPER_ADMIN_ROLE_DTO.setName("SUPER_ADMIN");
