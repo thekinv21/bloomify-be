@@ -3,11 +3,12 @@ on:
   push:
     branches:
       - dev
+      - master
     paths:
       - 'src/**'
       - 'public/**'
       - 'package.json'
-      - '.github/workflows/deploy-dev.yaml'
+      - '.github/workflows/deploy.yaml'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,8 +23,8 @@ jobs:
           script: |
             cd /home/bloomify-be
             git reset --hard
-            git checkout dev
-            git pull origin dev
+            git checkout master
+            git pull origin master
             mvn clean install -DskipTests
             cd target
             cp *.war /opt/tomcat/webapps/
