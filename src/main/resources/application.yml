@@ -6,8 +6,6 @@ server:
     context-path: /
 
 spring:
-  profiles:
-    default: dev,
   application:
     name: bloomify-be-dev
   jpa:

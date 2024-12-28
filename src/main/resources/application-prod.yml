@@ -6,8 +6,6 @@ server:
     context-path: /
 
 spring:
-  profiles:
-    active: prod
   application:
     name: "bloomify-be-prod",
   jpa:
