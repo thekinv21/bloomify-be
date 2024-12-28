@@ -1,0 +1,30 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'package.json'
+      - '.github/workflows/deploy-dev.yaml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/bloomify-be
+            git reset --hard
+            git checkout dev
+            git pull origin dev
+            mvn clean install -DskipTests
+            cd target
+            cp *.war /opt/tomcat/webapps/
+            sudo systemctl restart tomcat

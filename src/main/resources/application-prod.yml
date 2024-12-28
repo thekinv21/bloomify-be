@@ -1,24 +1,24 @@
-application_context: ${DEV_APP_CONTEXT}
+application_context: ${PROD_APP_CONTEXT}
 
 server:
-  port: 8081
+  port: 8080
   servlet:
     context-path: /
 
 spring:
   profiles:
-    default: dev,
+    active: prod
   application:
-    name: bloomify-be-dev
+    name: "bloomify-be-prod",
   jpa:
     database: postgresql
     hibernate:
       ddl-auto: update
     show-sql: true
   datasource:
-    url: ${DB_DEV_URL}
-    username: ${DB_DEV_USERNAME}
-    password: ${DB_DEV_PASSWORD}
+    url: ${DB_PROD_URL}
+    username: ${DB_PROD_USERNAME}
+    password: ${DB_PROD_PASSWORD}
   web:
     resources:
       add-mappings: false
@@ -27,10 +27,10 @@ spring:
       max-file-size: 20MB
       max-request-size: 40MB
 
-
 jwt-variables:
   secret-key: ${JWT_SECRET}
   expiration-time: 3600000
+
 
 AmazonS3:
   S3_SECRET_KEY: ${S3_SECRET_KEY}
