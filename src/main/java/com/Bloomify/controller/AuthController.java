@@ -25,8 +25,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequest loginRequest) {
-        return ResponseEntity.ok().body(authService.login(loginRequest));
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto) {
+        return ResponseEntity.ok().body(authService.login(loginDto));
     }
 
     @GetMapping("/get-myself")
@@ -35,8 +35,18 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LogoutRequest logoutRequest) {
-        authService.logout(logoutRequest);
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LogoutDto logoutDto) {
+        authService.logout(logoutDto);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<TokenDto> refreshToken(@Valid @RequestBody RefreshTokenDto refreshTokenRequest) {
+        return ResponseEntity.ok().body(authService.refreshToken(refreshTokenRequest));
+    }
+
+    @PostMapping("/validate-otp")
+    public ResponseEntity<Boolean> validateOtp(@Valid @RequestBody OtpValidateDto otpValidateDto) {
+        return ResponseEntity.ok().body(authService.validateOtp(otpValidateDto));
     }
 }
