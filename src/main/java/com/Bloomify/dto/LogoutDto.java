@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
-public class LogoutRequest {
+public class LogoutDto {
     @NotBlank
     private String token;
 }
