@@ -3,6 +3,7 @@ package com.Bloomify.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -34,11 +35,16 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "boolean default true")
     public Boolean isActive;
 
+    private Boolean otpEnabled;
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
+    private Set<Token> tokens = new HashSet<>();
 
 }

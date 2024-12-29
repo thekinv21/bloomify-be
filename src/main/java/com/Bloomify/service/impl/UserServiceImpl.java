@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UUID updateTokenSign(String username) {
         User user = getEntityByUsername(username);
-        var sign = UUID.randomUUID();
+        UUID sign = UUID.randomUUID();
         user.setTokenSign(sign);
         userRepository.save(user);
         return sign;
