@@ -29,6 +29,9 @@ spring:
 jwt-variables:
   secret-key: ${JWT_SECRET}
   expiration-time: 3600000
+  refresh-token-expiration-time: 3600000
+
+
 
 AmazonS3:
   S3_SECRET_KEY: ${S3_SECRET_KEY}
