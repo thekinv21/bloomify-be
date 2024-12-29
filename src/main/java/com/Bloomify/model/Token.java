@@ -2,29 +2,38 @@ package com.Bloomify.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
+import java.util.Date;
+import java.util.UUID;
 
-@Data
-@Entity(name = "TOKEN")
-public class Token {
+@Entity
+@Table(name = "tokens")
+@Getter
+@Setter
+
+public class Token extends BaseEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    private String username;
+    private String tokenSign;
 
-    @Column(nullable = false, unique = true, length = 2000)
-    private String accessToken;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Column(nullable = false, unique = true, length = 2000)
+    private Date refreshTokenExpiration;
+
     private String refreshToken;
 
-    @Column
-    private Instant accessTokenExpiryDate;
+    private Date otpExpiration;
 
-    @Column
-    private Instant refreshTokenExpiryDate;
+    private Integer otpCode;
 
-    private boolean valid;
+    private Boolean otpValidated = false;
+
 }
