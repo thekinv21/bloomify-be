@@ -37,6 +37,4 @@ public interface UserService{
     void toggle(UUID id);
 
     void delete(UUID id);
-
-    UUID updateTokenSign(@NotBlank String username);
 }
