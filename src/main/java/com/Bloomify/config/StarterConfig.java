@@ -53,10 +53,10 @@ public class StarterConfig implements CommandLineRunner {
             ADMIN.setFirstName("John");
             ADMIN.setLastName("Doe");
             ADMIN.setEmail("admin@gmail.com");
-            ADMIN.setUsername("admin");
+            ADMIN.setUsername("super_admin");
             ADMIN.setPassword("pass");
             ADMIN.setActive(true);
-            ADMIN.setRoles(Set.of(ADMIN_ROLE.getName(), SUPER_ADMIN_ROLE.getName()));
+            ADMIN.setRoles(Set.of(SUPER_ADMIN_ROLE.getName()));
             userService.create(ADMIN);
 
 
@@ -64,7 +64,7 @@ public class StarterConfig implements CommandLineRunner {
             USER.setFirstName("Erling");
             USER.setLastName("Holland");
             USER.setEmail("holland@gmail.com");
-            USER.setUsername("erling");
+            USER.setUsername("user");
             USER.setPassword("pass");
             USER.setActive(true);
             USER.setRoles(Set.of(USER_ROLE.getName()));
@@ -75,7 +75,7 @@ public class StarterConfig implements CommandLineRunner {
             SUPER_ADMIN.setFirstName("Emilia");
             SUPER_ADMIN.setLastName("Johnson");
             SUPER_ADMIN.setEmail("emilia@gmail.com");
-            SUPER_ADMIN.setUsername("emilia");
+            SUPER_ADMIN.setUsername("admin");
             SUPER_ADMIN.setPassword("pass");
             SUPER_ADMIN.setActive(true);
             SUPER_ADMIN.setRoles(Set.of(ADMIN_ROLE.getName()));
@@ -86,7 +86,7 @@ public class StarterConfig implements CommandLineRunner {
             MOD.setFirstName("Nil");
             MOD.setLastName("Watson");
             MOD.setEmail("nil@gmail.com");
-            MOD.setUsername("watson");
+            MOD.setUsername("mod");
             MOD.setPassword("pass");
             MOD.setActive(true);
             MOD.setRoles(Set.of(MOD_ROLE.getName()));
