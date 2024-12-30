@@ -36,7 +36,6 @@ public class FlowerImage extends BaseEntity {
     private Flower flower;
 
 
-    @PrePersist
     public void defaultIsActive() {
         if (isActive == null) {
             isActive = Boolean.TRUE;

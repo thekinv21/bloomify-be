@@ -24,8 +24,6 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
 
-    // fix login returning dto
-
     public TokenDto login(LoginDto loginDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -70,14 +68,12 @@ public class AuthServiceImpl implements AuthService {
         return userService.create(dto);
     }
 
-    // create new refresh token dto
 
     @Override
     public TokenDto refreshToken(RefreshTokenDto refreshTokenDto) {
         return tokenService.createNewTokenWithRefreshToken(refreshTokenDto.getRefreshToken());
     }
 
-    // create otp VALİDATİON
 
     @Override
     public boolean validateOtp(OtpValidateDto otpValidateDto) {
