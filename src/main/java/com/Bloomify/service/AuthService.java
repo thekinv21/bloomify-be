@@ -10,7 +10,7 @@ public interface AuthService {
 
     UserDto getMyself();
 
-    void logout(LogoutDto logoutDto);
+    void logout(String httpAuthorizationHeader);
 
     UserDto register(UserDto dto);
 

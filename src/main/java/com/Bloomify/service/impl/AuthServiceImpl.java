@@ -1,13 +1,14 @@
 package com.Bloomify.service.impl;
 
 import com.Bloomify.dto.*;
+import com.Bloomify.exception.CustomException;
+import com.Bloomify.model.User;
+import com.Bloomify.security.CustomUserDetails;
 import com.Bloomify.security.CustomUsernamePasswordAuthenticationToken;
-import com.Bloomify.service.AuthService;
-import com.Bloomify.service.JwtDecoderService;
-import com.Bloomify.service.JwtEncoderService;
-import com.Bloomify.service.UserService;
+import com.Bloomify.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,22 +20,32 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final JwtEncoderService tokenService;
-    private final JwtDecoderService jwtDecoderService;
+    private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
 
-    @Override
-    public TokenDto login(LoginRequest loginRequest) {
-        var authObj = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(), loginRequest.getPassword()));
+    // fix login returning dto
 
-        // update token sign on login
-        var sign = userService.updateTokenSign(loginRequest.getUsername());
+    public TokenDto login(LoginDto loginDto) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginDto.getUsername(),
+                            loginDto.getPassword())
+            );
+            CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+            User user = userDetails.getUser();
+            TokenDto token = tokenService.createNewTokenForUser(user);
 
-        var user = userService.getByUsername(loginRequest.getUsername());
-        return new TokenDto(tokenService.generateToken(authObj, sign), user);
+            if (Boolean.TRUE.equals(user.getOtpEnabled())) {
+                Integer otpCode = tokenService.createOtp(token.getTokenSign());
+                log.info("otp: {}, created for user {}", otpCode, loginDto.getUsername());
+            }
+            return token;
+        } catch (Exception e) {
+            log.error("Error occurred during login for user: {}", loginDto.getUsername(), e);
+            throw new CustomException("Wrong Credentials", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
@@ -42,22 +53,35 @@ public class AuthServiceImpl implements AuthService {
         CustomUsernamePasswordAuthenticationToken jwtAuthentication;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         jwtAuthentication = (CustomUsernamePasswordAuthenticationToken) authentication;
-        var user = userService.getByUsername(jwtAuthentication.getName());
+        UserDto user = userService.getByUsername(jwtAuthentication.getName());
         String jwtToken = jwtAuthentication.getToken();
         user.setToken(jwtToken);
         return user;
     }
 
     @Override
-    public void logout(LogoutRequest logoutRequest) {
-        var username = jwtDecoderService.extractUsername(logoutRequest.getToken());
-        // update token sign on logout
-        userService.updateTokenSign(username);
+    public void logout(String httpAuthorizationHeader) {
+        tokenService.invalidateTokenByAuthorizationHeader(httpAuthorizationHeader);
+
     }
 
     @Override
     public UserDto register(UserDto dto) {
         return userService.create(dto);
+    }
+
+    // create new refresh token dto
+
+    @Override
+    public TokenDto refreshToken(RefreshTokenDto refreshTokenDto) {
+        return tokenService.createNewTokenWithRefreshToken(refreshTokenDto.getRefreshToken());
+    }
+
+    // create otp VALİDATİON
+
+    @Override
+    public boolean validateOtp(OtpValidateDto otpValidateDto) {
+        return false;
     }
 
 }
