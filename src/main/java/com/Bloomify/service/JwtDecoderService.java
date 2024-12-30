@@ -1,6 +1,7 @@
 package com.Bloomify.service;
 
 import io.jsonwebtoken.Claims;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,12 +13,12 @@ public interface JwtDecoderService {
 
     List<String> extractRoles(String token);
 
+    String extractTokenSign(String token);
+
     <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
 
     boolean isTokenExpired(String token);
 
-    UUID extractTokenVersion(String token);
-
-    boolean isTokenValid(String token, UUID tokenSign);
+    boolean isTokenValid(String token, String expectedSignature);
 
 }

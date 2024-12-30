@@ -37,7 +37,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                                 "method", request.getMethod(),
                                 "status", response.getStatus(),
                                 "timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                                "message", "\n" + "Authorization is required")));
+                                "message", "Authorization is required")));
     }
 
 }

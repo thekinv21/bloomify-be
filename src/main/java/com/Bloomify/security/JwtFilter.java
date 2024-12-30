@@ -2,6 +2,7 @@ package com.Bloomify.security;
 
 
 import com.Bloomify.service.JwtDecoderService;
+import com.Bloomify.service.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
@@ -12,6 +13,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -30,6 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtDecoderService jwtDecoderService;
     private final UserDetailsSecurityService userDetailsService;
+    private final TokenService tokenService;
 
     @Override
     protected void doFilterInternal(
@@ -47,12 +50,9 @@ public class JwtFilter extends OncePerRequestFilter {
         final String jwt = header.substring(7);
 
         try {
-            String username = jwtDecoderService.extractUsername(jwt);
-            CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
 
-            if (!jwtDecoderService.isTokenValid(jwt, userDetails.getUser().getTokenSign())) {
-                throw new JwtException("Invalid JWT");
-            }
+            String username = tokenService.validateTokenAndReturnUsername(jwt);
+            CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
 
             CustomUsernamePasswordAuthenticationToken authToken =
                     new CustomUsernamePasswordAuthenticationToken(userDetails, userDetails.getAuthorities(), jwt);

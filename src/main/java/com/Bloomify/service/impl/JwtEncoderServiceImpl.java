@@ -6,54 +6,42 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
+
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class JwtEncoderServiceImpl implements JwtEncoderService {
 
-    @Value("${jwt-variables.secret-key}")
-    private String secretKey;
+    private final Key signingKey;
+    private final long jwtExpiration;
 
-    @Value("${jwt-variables.expiration-time}")
-    private long jwtExpiration;
 
-    public String generateToken(Authentication authentication, UUID tokenSign) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("roles", authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toArray());
-        claims.put("tokenSign", tokenSign);
-        return generateToken(claims, authentication.getName());
-    }
-
-    private String generateToken(Map<String, Object> extraClaims, String username) {
-        return buildToken(extraClaims, username, jwtExpiration);
-    }
-
-    private String buildToken(
-            Map<String, Object> extraClaims,
-            String username,
-            long expiration
+    public JwtEncoderServiceImpl(
+            @Value("${jwt-variables.secret-key}") String secretKey,
+            @Value("${jwt-variables.expiration-time}") long jwtExpiration
     ) {
-        return Jwts
-                .builder()
-                .setClaims(extraClaims)
-                .setSubject(username)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+        this.signingKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
+        this.jwtExpiration = jwtExpiration;
+    }
+
+    @Override
+    public String generateToken(String username, List<String> roles, String tokenSign) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles);
+        claims.put("tokenSign", tokenSign);
+        return buildToken(claims, username);
+    }
+
+    private String buildToken(Map<String, Object> claims, String subject) {
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(subject)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(signingKey, SignatureAlgorithm.HS256)
                 .compact();
     }
-
-    private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
-
 }
