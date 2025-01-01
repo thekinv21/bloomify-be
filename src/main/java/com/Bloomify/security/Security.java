@@ -1,6 +1,7 @@
 package com.Bloomify.security;
 
 
+import com.Bloomify.config.CustomCorsConfig;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ public class Security {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtFilter jwtFilter;
+    private final CustomCorsConfig customCorsConfig;
 
     @Bean
     public AuthenticationManager authenticationManager(
@@ -37,24 +39,6 @@ public class Security {
     ) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins(
-                                "https://admin.bloomify.life",
-                                "https://bloomify.life"
-                        )
-                        .allowedMethods("*")
-                        .allowedHeaders("*");
-            }
-        };
-    }
-
-
 
     // IGNORING PUBLIC REQUESTS ENDPOINTS
 
@@ -85,7 +69,7 @@ public class Security {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // Disable CORS
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(c -> c.configurationSource(customCorsConfig))
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
