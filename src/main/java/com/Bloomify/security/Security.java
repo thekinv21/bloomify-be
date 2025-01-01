@@ -43,11 +43,12 @@ public class Security {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://admin.bloomify.life", "https://bloomify.life")
+                        .allowedOrigins("*")
                         .allowedMethods("*");
             }
         };
     }
+
 
     // IGNORING PUBLIC REQUESTS ENDPOINTS
 
@@ -78,7 +79,7 @@ public class Security {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // DISABLE CORS
-                .cors(Customizer.withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
