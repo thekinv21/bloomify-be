@@ -77,8 +77,7 @@ public class Security {
                 // DISABLE CSRF
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // DISABLE CORS
-                .cors(Customizer.withDefaults())
+                .cors(AbstractHttpConfigurer::disable) // Disable CORS
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
