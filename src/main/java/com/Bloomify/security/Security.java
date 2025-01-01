@@ -42,11 +42,12 @@ public class Security {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("*");
+                registry.addMapping("/**")
+                        .allowedOrigins("https://admin.bloomify.life", "https://bloomify.life")
+                        .allowedMethods("*");
             }
         };
     }
-
 
     // IGNORING PUBLIC REQUESTS ENDPOINTS
 
