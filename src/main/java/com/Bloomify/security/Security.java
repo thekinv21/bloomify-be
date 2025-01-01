@@ -44,9 +44,13 @@ public class Security {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://admin.bloomify.life" ,"https://bloomify.life")
+                        .allowedOrigins(
+                                "https://admin.bloomify.life",
+                                "https://bloomify.life"
+                        )
                         .allowedMethods("*")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }
