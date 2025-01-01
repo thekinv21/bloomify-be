@@ -49,8 +49,7 @@ public class Security {
                                 "https://bloomify.life"
                         )
                         .allowedMethods("*")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowedHeaders("*");
             }
         };
     }
@@ -86,7 +85,7 @@ public class Security {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // Disable CORS
-                .cors(Customizer.withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
