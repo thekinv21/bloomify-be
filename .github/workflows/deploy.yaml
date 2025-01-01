@@ -11,7 +11,7 @@ on:
       - '.github/workflows/deploy.yaml'
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.10

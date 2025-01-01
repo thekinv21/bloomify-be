@@ -43,10 +43,7 @@ public class Security {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedMethods(CorsConfiguration.ALL)
-                        .allowedHeaders(CorsConfiguration.ALL)
-                        .allowedOriginPatterns(CorsConfiguration.ALL);
+                registry.addMapping("/**").allowedMethods("*");
             }
         };
     }
@@ -59,8 +56,8 @@ public class Security {
         return (web) ->
                 web.ignoring()
                         .requestMatchers(
-                                "/api/auth/login/**",
-                                "/api/auth/register/**",
+                                "/api/auth/login",
+                                "/api/auth/register",
                                 "/swagger-resources/**",
                                 "/swagger-ui.html/**",
                                 "/swagger-resources/**",
