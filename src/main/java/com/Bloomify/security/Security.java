@@ -43,10 +43,14 @@ public class Security {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("*");
+                registry.addMapping("/**")
+                        .allowedOrigins("https://admin.bloomify.life" ,"https://bloomify.life")
+                        .allowedMethods("*")
+                        .allowedHeaders("*");
             }
         };
     }
+
 
 
     // IGNORING PUBLIC REQUESTS ENDPOINTS
@@ -77,7 +81,8 @@ public class Security {
                 // DISABLE CSRF
                 .csrf(AbstractHttpConfigurer::disable)
 
-                .cors(AbstractHttpConfigurer::disable) // Disable CORS
+                // Disable CORS
+                .cors(Customizer.withDefaults())
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
