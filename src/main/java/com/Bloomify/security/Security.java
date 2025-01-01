@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -43,8 +44,9 @@ public class Security {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://admin.bloomify.life", "https://bloomify.life")
-                        .allowedMethods("*");
+                        .allowedMethods(CorsConfiguration.ALL)
+                        .allowedHeaders(CorsConfiguration.ALL)
+                        .allowedOriginPatterns(CorsConfiguration.ALL);
             }
         };
     }
@@ -79,7 +81,7 @@ public class Security {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 // DISABLE CORS
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
