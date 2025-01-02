@@ -1,8 +1,6 @@
 package com.Bloomify.security;
 
 
-import com.Bloomify.config.CustomCorsConfig;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +15,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +26,6 @@ public class Security {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final JwtFilter jwtFilter;
-    private final CustomCorsConfig customCorsConfig;
 
     @Bean
     public AuthenticationManager authenticationManager(
@@ -67,9 +61,6 @@ public class Security {
 
                 // DISABLE CSRF
                 .csrf(AbstractHttpConfigurer::disable)
-
-                // Disable CORS
-                .cors(c -> c.configurationSource(customCorsConfig))
 
                 // FILTER HTTP REQUEST
                 .exceptionHandling(handlingConfigurer -> {
