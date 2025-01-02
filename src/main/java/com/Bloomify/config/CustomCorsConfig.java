@@ -20,7 +20,7 @@ public class CustomCorsConfig implements CorsConfigurationSource {
                 "https://admin.bloomify.life",
                 "https://bloomify.life"
                 ));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD", "TRACE"));
         config.setAllowedHeaders(List.of("*"));
         return config;
     }
