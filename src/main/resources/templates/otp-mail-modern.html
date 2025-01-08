@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 25px;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .content {
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .content p {
+            margin: 10px 0;
+            font-size: 14px;
+            color: #555555;
+        }
+
+        .otp-code {
+            margin: 30px auto;
+            display: inline-block;
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 6px;
+            color: #007bff;
+            background-color: #f0f8ff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 1px dashed #007bff;
+        }
+
+        .alert {
+            margin: 25px 0;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            background-color: #fff8e1;
+            border-radius: 8px;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #999999;
+            padding: 15px 0;
+            border-top: 1px solid #eeeeee;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🔐 Your Verification Code</h1>
+    </div>
+
+    <div class="content">
+        <p>Hello <strong>[[${name}]]</strong>,</p>
+        <p>Please use the following verification code to proceed:</p>
+
+        <div class="otp-code">[[${otp_code}]]</div>
+
+        <p>This code will expire in <strong>5 minutes</strong>.</p>
+
+        <div class="alert">
+            ⚠️ <strong>Security Reminder:</strong> Please do not share this code with anyone.
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>If you didn't request this code, you can safely ignore this email.</p>
+        <p>&copy; 2025 VK Bloomify. All rights reserved.</p>
+    </div>
+</div>
+</body>
+</html>
