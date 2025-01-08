@@ -53,7 +53,7 @@ public class AuthController {
 
     @Operation(summary = "Validate OTP", operationId = "validateOtp")
     @PostMapping("/validate-otp")
-    public ResponseEntity<Boolean> validateOtp(@Valid @RequestBody OtpValidateDto otpValidateDto) {
+    public ResponseEntity<TokenDto> validateOtp(@Valid @RequestBody OtpValidateDto otpValidateDto) {
         return ResponseEntity.ok().body(authService.validateOtp(otpValidateDto));
     }
 }

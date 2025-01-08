@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public boolean validateOtp(OtpValidateDto otpValidateDto) {
+    public TokenDto validateOtp(OtpValidateDto otpValidateDto) {
         return tokenService.isOtpValid(otpValidateDto);
     }
 

@@ -16,5 +16,5 @@ public interface AuthService {
 
     TokenDto refreshToken(RefreshTokenDto refreshTokenDto);
 
-    boolean validateOtp(OtpValidateDto otpValidateDto);
+    TokenDto validateOtp(OtpValidateDto otpValidateDto);
 }

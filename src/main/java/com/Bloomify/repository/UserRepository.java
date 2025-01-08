@@ -27,5 +27,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     Page<User> findAll(Specification<User> spec, Pageable pageable);
 
+    Optional<User> findUserByTokenSign(String tokenSign);
+
 
 }

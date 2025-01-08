@@ -7,6 +7,7 @@ import com.Bloomify.model.Role;
 import com.Bloomify.model.Token;
 import com.Bloomify.model.User;
 import com.Bloomify.repository.TokenRepository;
+import com.Bloomify.repository.UserRepository;
 import com.Bloomify.service.JwtDecoderService;
 import com.Bloomify.service.JwtEncoderService;
 import com.Bloomify.service.TokenService;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
 
+  private final UserRepository userRepository;
   @Value("${jwt-variables.refresh-token-expiration-time}")
   private long refreshTokenExpirationTime;
 
@@ -72,13 +74,15 @@ public class TokenServiceImpl implements TokenService {
 
     // save token
     tokenRepository.save(token);
+
     return otpCode;
   }
 
   @Transactional
-  public boolean isOtpValid(OtpValidateDto otpValidateDto) {
+  public TokenDto isOtpValid(OtpValidateDto otpValidateDto) {
     Token token = tokenRepository.findByTokenSign(otpValidateDto.getTokenSign())
             .orElseThrow(() -> new EntityNotFoundException("A token with the given token does not exist"));
+
 
     if (token.getOtpExpiration().before(new Date())) {
       throw new RuntimeException("OTP is expired");
@@ -90,7 +94,25 @@ public class TokenServiceImpl implements TokenService {
 
     token.setOtpValidated(true);
     tokenRepository.save(token);
-    return true;
+
+    User user = token.getUser();
+    String jwtToken = jwtEncoderService.generateToken(
+            user.getUsername(),
+            user.getRoles().stream().map(Role::getName).collect(Collectors.toList()),
+            token.getTokenSign()
+    );
+
+
+    UserDto userDto = userService.getByUsername(user.getUsername());
+    tokenRepository.deleteByTokenSign(otpValidateDto.getTokenSign());
+
+    return new TokenDto(
+            token.getTokenSign(),
+            user.getOtpEnabled(),
+            jwtToken,
+            token.getRefreshToken(),
+            userDto
+    );
   }
 
 
