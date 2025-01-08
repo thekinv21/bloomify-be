@@ -35,7 +35,7 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "boolean default true")
     public Boolean isActive;
 
-    private Boolean otpEnabled;
+    private Boolean otpEnabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(
@@ -46,5 +46,6 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, orphanRemoval = true)
     private Set<Token> tokens = new HashSet<>();
+
 
 }
