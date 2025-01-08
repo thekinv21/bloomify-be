@@ -44,54 +44,29 @@ public class StarterConfig implements CommandLineRunner {
             MOD_ROLE_DTO.setName("MOD");
             MOD_ROLE_DTO.setIsActive(true);
 
-            RoleDto ADMIN_ROLE = roleService.create(ADMIN_ROLE_DTO);
             RoleDto USER_ROLE = roleService.create(USER_ROLE_DTO);
-            RoleDto SUPER_ADMIN_ROLE = roleService.create(SUPER_ADMIN_ROLE_DTO);
-            RoleDto MOD_ROLE = roleService.create(MOD_ROLE_DTO);
+            RoleDto ADMIN_ROLE = roleService.create(ADMIN_ROLE_DTO);
 
             UserDto ADMIN = new UserDto();
             ADMIN.setFirstName("John");
             ADMIN.setLastName("Doe");
-            ADMIN.setEmail("admin@gmail.com");
-            ADMIN.setUsername("super_admin");
+            ADMIN.setEmail("vadimkiniabaev@gmail.com");
+            ADMIN.setUsername("admin");
             ADMIN.setPassword("pass");
             ADMIN.setActive(true);
-            ADMIN.setRoles(Set.of(SUPER_ADMIN_ROLE.getName()));
+            ADMIN.setRoles(Set.of(ADMIN_ROLE.getName()));
             userService.create(ADMIN);
 
 
             UserDto USER = new UserDto();
             USER.setFirstName("Erling");
             USER.setLastName("Holland");
-            USER.setEmail("holland@gmail.com");
+            USER.setEmail("thekinv21@gmail.com");
             USER.setUsername("user");
             USER.setPassword("pass");
             USER.setActive(true);
             USER.setRoles(Set.of(USER_ROLE.getName()));
             userService.create(USER);
-
-
-            UserDto SUPER_ADMIN = new UserDto();
-            SUPER_ADMIN.setFirstName("Emilia");
-            SUPER_ADMIN.setLastName("Johnson");
-            SUPER_ADMIN.setEmail("emilia@gmail.com");
-            SUPER_ADMIN.setUsername("admin");
-            SUPER_ADMIN.setPassword("pass");
-            SUPER_ADMIN.setActive(true);
-            SUPER_ADMIN.setRoles(Set.of(ADMIN_ROLE.getName()));
-            userService.create(SUPER_ADMIN);
-
-
-            UserDto MOD = new UserDto();
-            MOD.setFirstName("Nil");
-            MOD.setLastName("Watson");
-            MOD.setEmail("nil@gmail.com");
-            MOD.setUsername("mod");
-            MOD.setPassword("pass");
-            MOD.setActive(true);
-            MOD.setRoles(Set.of(MOD_ROLE.getName()));
-            userService.create(MOD);
-
 
         }
         catch (Exception e) {
