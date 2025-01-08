@@ -45,6 +45,7 @@ public class Security {
                 web.ignoring()
                         .requestMatchers(
                                 "/api/auth/login",
+                                "/api/auth/validate-otp",
                                 "/api/auth/register",
                                 "/swagger-resources/**",
                                 "/swagger-ui.html/**",

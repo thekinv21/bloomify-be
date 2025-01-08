@@ -1,9 +1,6 @@
 package com.Bloomify.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -15,4 +12,11 @@ public class TokenDto {
     private String accessToken;
     private String refreshToken;
     private UserDto user;
+
+
+    @Getter
+    @Setter
+    public static class TokenSignDto {
+        private String tokenSign;
+    }
 }

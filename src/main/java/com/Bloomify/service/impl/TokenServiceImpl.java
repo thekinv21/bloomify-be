@@ -53,14 +53,24 @@ public class TokenServiceImpl implements TokenService {
 
   @Transactional
   public Integer createOtp(String tokenSign) {
+
+    // find saved token from database
     Token token = tokenRepository.findByTokenSign(tokenSign)
-        .orElseThrow(() -> new EntityNotFoundException("Token not found"));
-    // Generate a random 4-digit OTP
-    int otpCode = (int) (Math.random() * 9000) + 1000; // Random number between 1000-9999
-    // Set OTP code and expiration time (e.g., 5 minutes from now)
+        .orElseThrow(() -> new EntityNotFoundException("A token with the given token does not exist"));
+
+    // Generate a random 6-digit OTP
+    int otpCode = (int) (Math.random() * 900000) + 100000;
+
+    // set otp code
     token.setOtpCode(otpCode);
-    token.setOtpExpiration(new Date(System.currentTimeMillis() + 60 * 1000)); // 1 minutes
+
+    // Added 5 minutes for expire
+    token.setOtpExpiration(new Date(System.currentTimeMillis() + 60 * 5000));
+
+    // set invalid when create otp
     token.setOtpValidated(false);
+
+    // save token
     tokenRepository.save(token);
     return otpCode;
   }
@@ -68,17 +78,21 @@ public class TokenServiceImpl implements TokenService {
   @Transactional
   public boolean isOtpValid(OtpValidateDto otpValidateDto) {
     Token token = tokenRepository.findByTokenSign(otpValidateDto.getTokenSign())
-        .orElseThrow(() -> new EntityNotFoundException("Token not found"));
+            .orElseThrow(() -> new EntityNotFoundException("A token with the given token does not exist"));
+
     if (token.getOtpExpiration().before(new Date())) {
       throw new RuntimeException("OTP is expired");
     }
+
     if (!token.getOtpCode().equals(otpValidateDto.getOtpCode())) {
       throw new RuntimeException("Invalid OTP code");
     }
+
     token.setOtpValidated(true);
     tokenRepository.save(token);
     return true;
   }
+
 
 
   @Transactional

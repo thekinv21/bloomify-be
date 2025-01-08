@@ -28,7 +28,7 @@ public class AuthController {
 
     @Operation(summary = "Login an existing user", operationId = "loginUser")
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<TokenDto.TokenSignDto> login(@Valid @RequestBody LoginDto loginDto) {
         return ResponseEntity.ok().body(authService.login(loginDto));
     }
 

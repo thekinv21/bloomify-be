@@ -17,10 +17,21 @@
         .container {
             max-width: 600px;
             margin: 40px auto;
-            padding: 30px;
             background-color: #ffffff;
             border-radius: 12px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Shadow Simulation for Gmail */
+        .shadow-container {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .inner-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
         }
 
         .header {
@@ -38,7 +49,6 @@
         }
 
         .content {
-            padding: 30px 20px;
             text-align: center;
         }
 
@@ -83,27 +93,29 @@
 </head>
 
 <body>
-<div class="container">
-    <div class="header">
-        <h1>🔐 Your Verification Code</h1>
-    </div>
-
-    <div class="content">
-        <p>Hello <strong>[[${name}]]</strong>,</p>
-        <p>Please use the following verification code to proceed:</p>
-
-        <div class="otp-code">[[${otp_code}]]</div>
-
-        <p>This code will expire in <strong>5 minutes</strong>.</p>
-
-        <div class="alert">
-            ⚠️ <strong>Security Reminder:</strong> Please do not share this code with anyone.
+<div class="shadow-container">
+    <div class="container inner-container">
+        <div class="header">
+            <h1>🔐 Your Verification Code</h1>
         </div>
-    </div>
 
-    <div class="footer">
-        <p>If you didn't request this code, you can safely ignore this email.</p>
-        <p>&copy; 2025 VK Bloomify. All rights reserved.</p>
+        <div class="content">
+            <p>Hello <strong>[[${name}]]</strong>,</p>
+            <p>Please use the following verification code to proceed:</p>
+
+            <div class="otp-code">[[${otp_code}]]</div>
+
+            <p>This code will expire in <strong>5 minutes</strong>.</p>
+
+            <div class="alert">
+                ⚠️ <strong>Security Reminder:</strong> Please do not share this code with anyone.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>If you didn't request this code, you can safely ignore this email.</p>
+            <p>&copy; 2025 VK Bloomify. All rights reserved.</p>
+        </div>
     </div>
 </div>
 </body>

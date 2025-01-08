@@ -6,7 +6,7 @@ import com.Bloomify.dto.*;
 
 public interface AuthService {
 
-    TokenDto login(LoginDto loginDto);
+    TokenDto.TokenSignDto login(LoginDto loginDto);
 
     UserDto getMyself();
 

@@ -15,6 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,8 +26,9 @@ public class AuthServiceImpl implements AuthService {
     private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
+    private final EmailSender emailSender;
 
-    public TokenDto login(LoginDto loginDto) {
+    public TokenDto.TokenSignDto login(LoginDto loginDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -38,8 +42,15 @@ public class AuthServiceImpl implements AuthService {
             if (Boolean.TRUE.equals(user.getOtpEnabled())) {
                 Integer otpCode = tokenService.createOtp(token.getTokenSign());
                 log.info("otp: {}, created for user {}", otpCode, loginDto.getUsername());
+                HtmlEmailDto htmlEmailDto = new HtmlEmailDto("OTP Verification", user.getEmail(), "otp-mail-modern");
+                Map<String, Object> model = new HashMap<>();
+                model.put("name", user.getUsername());
+                model.put("otp_code", otpCode);
+                emailSender.htmlSend(htmlEmailDto, model);
             }
-            return token;
+            TokenDto.TokenSignDto tokenSignDto = new TokenDto.TokenSignDto();
+            tokenSignDto.setTokenSign(token.getTokenSign());
+            return tokenSignDto;
         } catch (Exception e) {
             log.error("Error occurred during login for user: {}", loginDto.getUsername(), e);
             throw new CustomException("Wrong Credentials", HttpStatus.BAD_REQUEST);
@@ -77,7 +88,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean validateOtp(OtpValidateDto otpValidateDto) {
-        return false;
+        return tokenService.isOtpValid(otpValidateDto);
     }
 
 }
