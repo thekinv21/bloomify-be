@@ -28,7 +28,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserService userService;
     private final EmailSender emailSender;
 
-    public TokenDto.TokenSignDto login(LoginDto loginDto) {
+    public TokenDto login(LoginDto loginDto) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -48,9 +48,7 @@ public class AuthServiceImpl implements AuthService {
                 model.put("otp_code", otpCode);
                 emailSender.htmlSend(htmlEmailDto, model);
             }
-            TokenDto.TokenSignDto tokenSignDto = new TokenDto.TokenSignDto();
-            tokenSignDto.setTokenSign(token.getTokenSign());
-            return tokenSignDto;
+            return token;
         } catch (Exception e) {
             log.error("Error occurred during login for user: {}", loginDto.getUsername(), e);
             throw new CustomException("Wrong Credentials", HttpStatus.BAD_REQUEST);
@@ -87,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public TokenDto validateOtp(OtpValidateDto otpValidateDto) {
+    public boolean validateOtp(OtpValidateDto otpValidateDto) {
         return tokenService.isOtpValid(otpValidateDto);
     }
 

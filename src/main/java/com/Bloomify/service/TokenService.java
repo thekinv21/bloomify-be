@@ -19,5 +19,5 @@ public interface TokenService {
 
   Integer createOtp(String tokenSign);
 
-  TokenDto isOtpValid(OtpValidateDto otpValidateDto);
+  boolean isOtpValid(OtpValidateDto otpValidateDto);
 }

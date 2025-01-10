@@ -6,7 +6,7 @@ import com.Bloomify.dto.*;
 
 public interface AuthService {
 
-    TokenDto.TokenSignDto login(LoginDto loginDto);
+    TokenDto login(LoginDto loginDto);
 
     UserDto getMyself();
 
@@ -16,5 +16,5 @@ public interface AuthService {
 
     TokenDto refreshToken(RefreshTokenDto refreshTokenDto);
 
-    TokenDto validateOtp(OtpValidateDto otpValidateDto);
+    boolean validateOtp(OtpValidateDto otpValidateDto);
 }

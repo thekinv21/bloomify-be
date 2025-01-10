@@ -28,7 +28,7 @@ public class AuthController {
 
     @Operation(summary = "Login an existing user", operationId = "loginUser")
     @PostMapping("/login")
-    public ResponseEntity<TokenDto.TokenSignDto> login(@Valid @RequestBody LoginDto loginDto) {
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginDto loginDto) {
         return ResponseEntity.ok().body(authService.login(loginDto));
     }
 
@@ -53,7 +53,7 @@ public class AuthController {
 
     @Operation(summary = "Validate OTP", operationId = "validateOtp")
     @PostMapping("/validate-otp")
-    public ResponseEntity<TokenDto> validateOtp(@Valid @RequestBody OtpValidateDto otpValidateDto) {
-        return ResponseEntity.ok().body(authService.validateOtp(otpValidateDto));
+    public ResponseEntity<CustomApiResponse> validateOtp(@Valid @RequestBody OtpValidateDto otpValidateDto) {
+        return CustomApiResponse.builder().data(authService.validateOtp(otpValidateDto)).build();
     }
 }

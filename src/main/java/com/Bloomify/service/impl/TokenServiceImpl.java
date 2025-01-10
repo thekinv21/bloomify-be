@@ -79,10 +79,9 @@ public class TokenServiceImpl implements TokenService {
   }
 
   @Transactional
-  public TokenDto isOtpValid(OtpValidateDto otpValidateDto) {
+  public boolean isOtpValid(OtpValidateDto otpValidateDto) {
     Token token = tokenRepository.findByTokenSign(otpValidateDto.getTokenSign())
             .orElseThrow(() -> new EntityNotFoundException("A token with the given token does not exist"));
-
 
     if (token.getOtpExpiration().before(new Date())) {
       throw new RuntimeException("OTP is expired");
@@ -91,28 +90,9 @@ public class TokenServiceImpl implements TokenService {
     if (!token.getOtpCode().equals(otpValidateDto.getOtpCode())) {
       throw new RuntimeException("Invalid OTP code");
     }
-
     token.setOtpValidated(true);
     tokenRepository.save(token);
-
-    User user = token.getUser();
-    String jwtToken = jwtEncoderService.generateToken(
-            user.getUsername(),
-            user.getRoles().stream().map(Role::getName).collect(Collectors.toList()),
-            token.getTokenSign()
-    );
-
-
-    UserDto userDto = userService.getByUsername(user.getUsername());
-    tokenRepository.deleteByTokenSign(otpValidateDto.getTokenSign());
-
-    return new TokenDto(
-            token.getTokenSign(),
-            user.getOtpEnabled(),
-            jwtToken,
-            token.getRefreshToken(),
-            userDto
-    );
+    return true;
   }
 
 
